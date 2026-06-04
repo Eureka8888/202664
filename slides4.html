@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高淳区“人宠共生”全域调研与诊断报告</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 1. 全局设计系统规范 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #E2E8F0;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            align-items: center;
+            padding: 40px 0;
+            font-family: 'Noto Sans SC', sans-serif;
+            color: #505840; /* 慢城主橄榄绿 */
+        }
+
+        .slide-container {
+            width: 1280px;
+            height: 720px;
+            background-color: #FFFFFF; /* 极简白底 */
+            box-shadow: 0 12px 36px rgba(80, 88, 64, 0.08);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 60px 80px;
+        }
+
+        /* 2. 颜色体系 (CSS变量) */
+        :root {
+            --brand-olive: #505840;   /* 深橄榄绿 */
+            --brand-gold: #E3B92F;    /* 暖阳金 */
+            --brand-sage: #78AA73;    /* 叶绿 */
+            --brand-grey: #ABABAB;    /* 中灰 */
+            --brand-light: #F5F5F5;   /* 极浅暖灰 */
+        }
+
+        /* 3. 版式与排版规范 */
+        .slide-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 2px solid rgba(80, 88, 64, 0.08);
+            padding-bottom: 20px;
+            height: 85px;
+        }
+
+        .slide-header .title-area {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .slide-header .part-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brand-sage);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .slide-header h2.slide-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--brand-olive);
+            letter-spacing: -0.5px;
+        }
+
+        .slide-header .brand-stamp {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brand-grey);
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .slide-content {
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 30px 0;
+            height: 440px;
+            overflow: hidden;
+        }
+
+        .slide-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(80, 88, 64, 0.08);
+            padding-top: 15px;
+            height: 45px;
+        }
+
+        .slide-footer .footnote {
+            font-size: 11px;
+            color: var(--brand-grey);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .slide-footer .page-number {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--brand-olive);
+        }
+
+        /* 4. 具体布局构件 */
+        /* 两栏布格 (Slide 1 专用) */
+        .layout-two-col {
+            display: grid;
+            grid-template-columns: 55% 40%;
+            gap: 5%;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 三栏卡片布格 (Slide 2 专用) */
+        .layout-three-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 2x2卡片网格 (Slide 3 优势页专用) */
+        .layout-grid-2x2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 20px;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 上下非对称布局 (Slide 4 专用) */
+        .layout-diagnostics {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 5. 模块化组件样式 */
+        .data-card {
+            background-color: var(--brand-light);
+            border: 1px solid rgba(80, 88, 64, 0.05);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-header-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .card-tag {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--brand-sage);
+            background-color: rgba(120, 170, 115, 0.1);
+            padding: 3px 8px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--brand-olive);
+        }
+
+        .card-body-text {
+            font-size: 12px;
+            color: #606854;
+            line-height: 1.6;
+        }
+
+        .huge-number-display {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            margin: 15px 0;
+        }
+
+        .huge-number {
+            font-size: 56px;
+            font-weight: 900;
+            color: var(--brand-olive);
+            line-height: 1;
+        }
+
+        .huge-number.highlight {
+            color: var(--brand-gold);
+        }
+
+        .huge-unit {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--brand-olive);
+        }
+
+        /* SVG/CSS 极简高级图表 */
+        .chart-panel {
+            background-color: var(--brand-light);
+            border-radius: 8px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .chart-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--brand-olive);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 15px;
+        }
+
+        .trend-chart-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            height: 180px;
+            padding: 10px 10px 0 10px;
+            border-bottom: 2px solid var(--brand-grey);
+            position: relative;
+        }
+
+        .chart-bar-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 12%;
+            height: 100%;
+            justify-content: flex-end;
+            position: relative;
+        }
+
+        .chart-bar-fill {
+            width: 100%;
+            background-color: var(--brand-sage);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: height 0.5s ease;
+        }
+
+        .chart-bar-fill.highlight {
+            background-color: var(--brand-gold);
+        }
+
+        .chart-bar-val {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--brand-olive);
+            margin-bottom: 4px;
+            position: absolute;
+            top: -20px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .chart-bar-label {
+            font-size: 10px;
+            color: var(--brand-grey);
+            margin-top: 8px;
+            position: absolute;
+            bottom: -22px;
+            white-space: nowrap;
+        }
+
+        .gap-indicator-wrapper {
+            background-color: #FFFFFF;
+            border-radius: 6px;
+            padding: 15px;
+            border: 1px solid rgba(80, 88, 64, 0.05);
+        }
+
+        .indicator-row {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .indicator-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .indicator-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .progress-track {
+            height: 8px;
+            background-color: var(--brand-light);
+            border-radius: 4px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 4px;
+        }
+
+        /* 纯文本文案排版规则 */
+        .narrative-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+
+        .narrative-item {
+            border-left: 3px solid var(--brand-sage);
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .narrative-item.highlight {
+            border-left-color: var(--brand-gold);
+        }
+
+        .narrative-item h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--brand-olive);
+            margin-bottom: 4px;
+        }
+
+        .narrative-item p {
+            font-size: 12px;
+            color: #606854;
+            line-height: 1.6;
+        }
+
+        .narrative-banner {
+            background-color: rgba(227, 185, 47, 0.1);
+            border: 1px solid rgba(227, 185, 47, 0.2);
+            padding: 15px;
+            border-radius: 6px;
+            font-size: 11px;
+            line-height: 1.6;
+            color: var(--brand-olive);
+        }
+
+        /* Slide 4 专用结构 */
+        .asset-banner {
+            background-color: var(--brand-light);
+            border-left: 4px solid var(--brand-olive);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .asset-banner-left {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .asset-banner-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--brand-olive);
+        }
+
+        .asset-banner-desc {
+            font-size: 12px;
+            color: #606854;
+        }
+
+        .asset-pills {
+            display: flex;
+            gap: 12px;
+        }
+
+        .asset-pill {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            border: 1px solid rgba(80, 88, 64, 0.15);
+        }
+
+        .asset-pill.olive {
+            background-color: var(--brand-olive);
+            color: #FFFFFF;
+        }
+
+        .asset-pill.sage {
+            background-color: var(--brand-sage);
+            color: #FFFFFF;
+        }
+
+        .diagnostics-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            flex-grow: 1;
+        }
+
+        .diagnostic-card {
+            border: 1px solid rgba(171, 171, 171, 0.3);
+            border-radius: 8px;
+            padding: 18px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .diagnostic-card:hover {
+            border-color: var(--brand-gold);
+            background-color: rgba(227, 185, 47, 0.02);
+        }
+
+        .diagnostic-num {
+            font-size: 12px;
+            font-weight: 950;
+            color: var(--brand-grey);
+            letter-spacing: 1px;
+        }
+
+        .diagnostic-title {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--brand-olive);
+            margin: 4px 0 8px 0;
+        }
+
+        .diagnostic-desc {
+            font-size: 11px;
+            color: #606854;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            flex-grow: 1;
+        }
+
+        .diagnostic-solution {
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--brand-sage);
+            border-top: 1px dashed rgba(80, 88, 64, 0.1);
+            padding-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: 天时 · 宏观数据大盘 -->
+<div class="slide-container" id="slide1">
+    <!-- 头部栏 -->
+    <div class="slide-header">
+        <div class="title-area">
+            <span class="part-tag">PART 01 / MACRO ASSESSMENT</span>
+            <h2 class="slide-title">我国宠物经济的发展韧性与供需缺口研判</h2>
+        </div>
+        <div class="brand-stamp">
+            南京高淳全域“人宠共生”设计咨询案<br>
+            <span style="color: var(--brand-sage);">SHIJI CITTASLOW DESIGN</span>
+        </div>
+    </div>
+
+    <!-- 主体内容区 (左右非对称) -->
+    <div class="slide-content">
+        <div class="layout-two-col">
+            <!-- 左侧：图表整合面板 -->
+            <div class="chart-panel">
+                <!-- 子图表 1: 产业趋势 (2020-2025) -->
+                <div>
+                    <div class="chart-title">
+                        <i class="fa-solid fa-chart-simple" style="color: var(--brand-sage);"></i>
+                        我国宠物行业产业经济大盘成长趋势 (2020-2025/单位：亿元)
+                    </div>
+                    <div class="trend-chart-wrapper">
+                        <div class="chart-bar-col">
+                            <span class="chart-bar-val">2,953</span>
+                            <div class="chart-bar-fill" style="height: 36.3%;"></div>
+                            <span class="chart-bar-label">2020</span>
+                        </div>
+                        <div class="chart-bar-col">
+                            <span class="chart-bar-val">3,942</span>
+                            <div class="chart-bar-fill" style="height: 48.5%;"></div>
+                            <span class="chart-bar-label">2021</span>
+                        </div>
+                        <div class="chart-bar-col">
+                            <span class="chart-bar-val">4,935</span>
+                            <div class="chart-bar-fill" style="height: 60.8%;"></div>
+                            <span class="chart-bar-label">2022</span>
+                        </div>
+                        <div class="chart-bar-col">
+                            <span class="chart-bar-val">5,928</span>
+                            <div class="chart-bar-fill" style="height: 73.0%;"></div>
+                            <span class="chart-bar-label">2023</span>
+                        </div>
+                        <div class="chart-bar-col">
+                            <span class="chart-bar-val">7,012</span>
+                            <div class="chart-bar-fill" style="height: 86.4%;"></div>
+                            <span class="chart-bar-label">2024</span>
+                        </div>
+                        <div class="chart-bar-col">
+                            <span class="chart-bar-val" style="color: var(--brand-gold);">8,114</span>
+                            <div class="chart-bar-fill highlight" style="height: 100%;"></div>
+                            <span class="chart-bar-label" style="color: var(--brand-olive); font-weight: 700;">2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 子图表 2: 供需缺口 -->
+                <div class="gap-indicator-wrapper">
+                    <div class="indicator-row">
+                        <div class="indicator-meta">
+                            <span>城镇养宠群体：携宠出游主观意愿</span>
+                            <span style="color: var(--brand-gold);">70.0%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-bar" style="width: 70%; background-color: var(--brand-gold);"></div>
+                        </div>
+                    </div>
+                    <div class="indicator-row" style="margin-top: 8px;">
+                        <div class="indicator-meta">
+                            <span>城镇养宠群体：实际付费出游行动率</span>
+                            <span style="color: var(--brand-sage);">50.6%</span>
+                        </div>
+                        <div class="progress-track">
+                            <div class="progress-bar" style="width: 50.6%; background-color: var(--brand-sage);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：严谨推导文案 -->
+            <div class="narrative-block">
+                <div class="space-y-4">
+                    <div class="narrative-item">
+                        <h4>产业抗周期增长特征显著</h4>
+                        <p>我国宠物经济大盘已冲破8100亿关口，城镇犬猫总量超1.26亿只。在文旅大盘重构期，“情绪代偿”与家庭成员化定位赋予本赛道极高韧性。</p>
+                    </div>
+                    <div class="narrative-item highlight">
+                        <h4>高价值增量客群特征分析</h4>
+                        <p>携宠出游群体以中青年白领为主。因出行决策成本高，其出游行为天然呈现出“长留存（高过夜率）、高客单价、高频复购”的品质度假特征。</p>
+                    </div>
+                </div>
+
+                <div class="narrative-banner">
+                    <i class="fa-solid fa-triangle-exclamation" style="color: var(--brand-gold); margin-right: 4px;"></i>
+                    <strong>研判结论：</strong>庞大的潜在携宠需求与极其匮乏的空间配套，构成当前华东文旅市场最显著的<strong>结构性供需缺口</strong>。率先打通服务阻碍的地区，将产生极强溢价。
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <div class="slide-footer">
+        <div class="footnote">
+            <i class="fa-solid fa-circle-info"></i> 数据来源：《2025-2026年中国宠物行业白皮书》、艾媒咨询（iiMedia Research）权威统计
+        </div>
+        <div class="page-number">01</div>
+    </div>
+</div>
+
+
+<!-- Slide 2: 地利 · 标杆经验借鉴 -->
+<div class="slide-container" id="slide2">
+    <!-- 头部栏 -->
+    <div class="slide-header">
+        <div class="title-area">
+            <span class="part-tag">PART 02 / BENCHMARKING</span>
+            <h2 class="slide-title">宠物友好空间打造的经济效益转化路径研究</h2>
+        </div>
+        <div class="brand-stamp">
+            南京高淳全域“人宠共生”设计咨询案<br>
+            <span style="color: var(--brand-sage);">SHIJI CITTASLOW DESIGN</span>
+        </div>
+    </div>
+
+    <!-- 主体内容区 (三卡片并排) -->
+    <div class="slide-content">
+        <div class="layout-three-cards">
+            <!-- 卡片 1: 景区对标 -->
+            <div class="data-card">
+                <div class="card-header-group">
+                    <span class="card-tag">景区增量 · 九子岩</span>
+                    <h4 class="card-title">自然资源景区的客流量爆发</h4>
+                </div>
+                <p class="card-body-text">
+                    安徽九子岩景区通过引入宠物拾便、无绳探索及精细化导视，全面释放宠物准入准许度，实现资源型景区的降维吸纳。
+                </p>
+                <div class="huge-number-display">
+                    <span class="huge-number">+59</span>
+                    <span class="huge-unit">% 营收净增</span>
+                </div>
+                <p class="card-body-text" style="font-size: 11px; border-top: 1px solid rgba(80, 88, 64, 0.08); padding-top: 10px;">
+                    官方统计表明，一季度客票人次净增74%，其中 <strong>30% 核心客流完全由携宠客群贡献</strong>。
+                </p>
+            </div>
+
+            <!-- 卡片 2: 度假业态 -->
+            <div class="data-card">
+                <div class="card-header-group">
+                    <span class="card-tag" style="color: var(--brand-gold); background-color: rgba(227, 185, 47, 0.1);">二消翻倍 · 江南天池</span>
+                    <h4 class="card-title">垂类场景激活高频二次消费</h4>
+                </div>
+                <p class="card-body-text">
+                    浙江安吉江南天池结合滑雪及露营本底，打造华东首条“宠物滑雪专用雪道”，成功实现冬季低谷期的逆势突围。
+                </p>
+                <div class="huge-number-display">
+                    <span class="huge-number highlight">+125</span>
+                    <span class="huge-unit">% 二消增幅</span>
+                </div>
+                <p class="card-body-text" style="font-size: 11px; border-top: 1px solid rgba(80, 88, 64, 0.08); padding-top: 10px;">
+                    通过植入宠物洗护、驻场托管及人宠定制雪具等零售场景，<strong>人均消费深度二次转化</strong>。
+                </p>
+            </div>
+
+            <!-- 卡片 3: 溢价路径 -->
+            <div class="data-card">
+                <div class="card-header-group">
+                    <span class="card-tag">情绪溢价 · 定制宠旅</span>
+                    <h4 class="card-title">情绪经济支撑高回报经营链</h4>
+                </div>
+                <p class="card-body-text">
+                    一线城市中远途高端人宠定制游（如爱宠游包机、专列旅游）调研证实，宠主对高客单价服务展现出超凡包容度。
+                </p>
+                <div class="huge-number-display">
+                    <span class="huge-number">40</span>
+                    <span class="huge-unit">% 行业毛利</span>
+                </div>
+                <p class="card-body-text" style="font-size: 11px; border-top: 1px solid rgba(80, 88, 64, 0.08); padding-top: 10px;">
+                    典型中远途宠旅路线<strong>平均利润率保持在 30%-40%</strong>，其溢价水平及重访率远超同纬度传统观光团。
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <div class="slide-footer">
+        <div class="footnote">
+            <i class="fa-solid fa-circle-info"></i> 数据及事实提炼自：新华网、21世纪经济报道、旅业资讯行业调查报告
+        </div>
+        <div class="page-number">02</div>
+    </div>
+</div>
+
+
+<!-- Slide 3: 地利 · 资源禀赋 (新设优势评估页) -->
+<div class="slide-container" id="slide3">
+    <!-- 头部栏 -->
+    <div class="slide-header">
+        <div class="title-area">
+            <span class="part-tag">PART 03 / ENDOWMENT & ADVANTAGES</span>
+            <h2 class="slide-title">高淳区发展宠物经济的独特资源禀赋评估</h2>
+        </div>
+        <div class="brand-stamp">
+            南京高淳全域“人宠共生”设计咨询案<br>
+            <span style="color: var(--brand-sage);">SHIJI CITTASLOW DESIGN</span>
+        </div>
+    </div>
+
+    <!-- 主体内容区 (2x2 卡片网格，高智感排版) -->
+    <div class="slide-content">
+        <div class="layout-grid-2x2">
+            <!-- 优势 1 -->
+            <div class="data-card" style="padding: 18px 24px;">
+                <div class="card-header-group">
+                    <span class="card-tag">区位客群辐射</span>
+                    <h4 class="card-title" style="font-size: 15px;">精准辐射长三角高净值核心养宠圈</h4>
+                </div>
+                <p class="card-body-text" style="font-size: 11px; margin-top: 6px;">
+                    地处苏皖两省交界，1.5-2.5小时高速直达圈完全覆盖宁镇扬、苏锡常、上海、合肥等核心宠主密集群。依托S9号线与未来宁宣高铁，能够实现中高端客群的极速导入。
+                </p>
+                <div style="font-size: 10px; font-weight: 700; color: var(--brand-sage); border-top: 1px solid rgba(80,88,64,0.06); padding-top: 6px; margin-top: 6px; display: flex; align-items: center; gap: 4px;">
+                    <i class="fa-solid fa-car-side"></i> 1.5小时自驾舒适带，天然避开对应激敏感的猫狗远程长途压力
+                </div>
+            </div>
+
+            <!-- 优势 2 -->
+            <div class="data-card" style="padding: 18px 24px;">
+                <div class="card-header-group">
+                    <span class="card-tag" style="color: var(--brand-gold); background-color: rgba(227, 185, 47, 0.1);">生态空间本底</span>
+                    <h4 class="card-title" style="font-size: 15px;">极稀缺的低密度“人宠共融”户外载体</h4>
+                </div>
+                <p class="card-body-text" style="font-size: 11px; margin-top: 6px;">
+                    国际慢城与水慢城坐拥大面积起伏的茶田、湿地、湖泊与缓坡，极低的建筑密度带来极致安全的户外边界，是开展“无绳放飞”、人宠徒步与社群露营等活动的绝佳天然秀场。
+                </p>
+                <div style="font-size: 10px; font-weight: 700; color: var(--brand-gold); border-top: 1px solid rgba(80,88,64,0.06); padding-top: 6px; margin-top: 6px; display: flex; align-items: center; gap: 4px;">
+                    <i class="fa-solid fa-tree"></i> 庞大生态安全边界，无压力消解“人宠空间冲突”的核心痛点
+                </div>
+            </div>
+
+            <!-- 优势 3 -->
+            <div class="data-card" style="padding: 18px 24px;">
+                <div class="card-header-group">
+                    <span class="card-tag">全产业链链条</span>
+                    <h4 class="card-title" style="font-size: 15px;">全长三角唯一的“前店后厂”产业链闭环</h4>
+                </div>
+                <p class="card-body-text" style="font-size: 11px; margin-top: 6px;">
+                    5.5平方公里南京都市食品产业园是官方重点打造的宠物食品与用品供应链制造基地。高淳是极少数能实现“后厂生产研发、前店文旅消费体验反馈”的地区，具备极深工业和供应链护城河。
+                </p>
+                <div style="font-size: 10px; font-weight: 700; color: var(--brand-sage); border-top: 1px solid rgba(80,88,64,0.06); padding-top: 6px; margin-top: 6px; display: flex; align-items: center; gap: 4px;">
+                    <i class="fa-solid fa-industry"></i> 从单纯“文旅友好”概念升级为实体产业税收支持的深度驱动
+                </div>
+            </div>
+
+            <!-- 优势 4 -->
+            <div class="data-card" style="padding: 18px 24px;">
+                <div class="card-header-group">
+                    <span class="card-tag">品牌契合共鸣</span>
+                    <h4 class="card-title" style="font-size: 15px;">慢生活标签与现代情感陪伴的高共振</h4>
+                </div>
+                <p class="card-body-text" style="font-size: 11px; margin-top: 6px;">
+                    高淳作为“中国首个国际慢城”，其绿色、可持续、松弛的生活方式理念，与现代宠物主追求的“人宠共生、平权栖居、情感陪伴”的精神内核高度一致，品牌无形资产极易发生情感溢价转化。
+                </p>
+                <div style="font-size: 10px; font-weight: 700; color: var(--brand-sage); border-top: 1px solid rgba(80,88,64,0.06); padding-top: 6px; margin-top: 6px; display: flex; align-items: center; gap: 4px;">
+                    <i class="fa-solid fa-heart"></i> “慢生活”国家级IP与“它消费”情绪代偿场景的本能匹配
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <div class="slide-footer">
+        <div class="footnote">
+            <i class="fa-solid fa-circle-info"></i> 高淳区城市总体规划(2030)、国际慢城管委会与携程/丽呈联合产业签约纪要
+        </div>
+        <div class="page-number">03</div>
+    </div>
+</div>
+
+
+<!-- Slide 4: 人和 · 高淳现状诊断 -->
+<div class="slide-container" id="slide4">
+    <!-- 头部栏 -->
+    <div class="slide-header">
+        <div class="title-area">
+            <span class="part-tag">PART 04 / DIAGNOSTICS &amp; STATUS</span>
+            <h2 class="slide-title">高淳发展本底评估与宠物友好瓶颈问题诊断</h2>
+        </div>
+        <div class="brand-stamp">
+            南京高淳全域“人宠共生”设计咨询案<br>
+            <span style="color: var(--brand-sage);">SHIJI CITTASLOW DESIGN</span>
+        </div>
+    </div>
+
+    <!-- 主体内容区 (上下排布) -->
+    <div class="slide-content">
+        <div class="layout-diagnostics">
+            <!-- 优势本底横条 -->
+            <div class="asset-banner">
+                <div class="asset-banner-left">
+                    <h4 class="asset-banner-title">高淳特有本底：全长三角唯一的“前店后厂、产销一体”产业闭环</h4>
+                    <p class="asset-banner-desc">绝大多数地区仅在单纯输出“宠物友好”的纯文旅概念，而高淳自带深厚的百亿级实体工业支撑。</p>
+                </div>
+                <div class="asset-pills">
+                    <span class="asset-pill olive">供给端：5.5k㎡ 南京都市食品园</span>
+                    <span class="asset-pill sage">场景端：国际慢城/水慢城天然放飞区</span>
+                </div>
+            </div>
+
+            <!-- 瓶颈问题卡片 (4卡片) -->
+            <div class="diagnostics-grid">
+                <!-- 瓶颈 1 -->
+                <div class="diagnostic-card">
+                    <div>
+                        <span class="diagnostic-num">01 / SPATIAL GAP</span>
+                        <h4 class="diagnostic-title">准入与消费脱节</h4>
+                        <p class="diagnostic-desc">景区停留在“放行犬只”的低价值免费门槛，严重缺乏高客单价的二消项目及消费触点，造成流量空转。</p>
+                    </div>
+                    <div class="diagnostic-solution">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 场景重构：功能二消场景
+                    </div>
+                </div>
+
+                <!-- 瓶颈 2 -->
+                <div class="diagnostic-card">
+                    <div>
+                        <span class="diagnostic-num">02 / TRANSIT GAP</span>
+                        <h4 class="diagnostic-title">末端接驳微瘫痪</h4>
+                        <p class="diagnostic-desc">S9地铁极美，但出站至核心景区20km缺乏合规人宠接驳系统，直接封锁了高消费的非自驾年轻白领群。</p>
+                    </div>
+                    <div class="diagnostic-solution">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 空间重构：站前宠旅集散舱
+                    </div>
+                </div>
+
+                <!-- 瓶颈 3 -->
+                <div class="diagnostic-card">
+                    <div>
+                        <span class="diagnostic-num">03 / TIME GAP</span>
+                        <h4 class="diagnostic-title">周末严重潮汐化</h4>
+                        <p class="diagnostic-desc">客流高度依赖周末和节假日。周一至周五由于缺少常态化的驻留、办公设施，导致大量闲置损耗。</p>
+                    </div>
+                    <div class="diagnostic-solution">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 运营重构：周中办公驻留营
+                    </div>
+                </div>
+
+                <!-- 瓶颈 4 -->
+                <div class="diagnostic-card">
+                    <div>
+                        <span class="diagnostic-num">04 / INDUSTRIAL GAP</span>
+                        <h4 class="diagnostic-title">产业场景双张皮</h4>
+                        <p class="diagnostic-desc">食品产业园生产力强大，但文旅景区缺少体验式展示平台。产销无法交叉互哺，品牌附加值难释放。</p>
+                    </div>
+                    <div class="diagnostic-solution">
+                        <i class="fa-solid fa-wand-magic-sparkles"></i> 闭环重构：前店后厂首发展
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部栏 -->
+    <div class="slide-footer">
+        <div class="footnote">
+            <i class="fa-solid fa-circle-info"></i> 基于2026年度南京市促进宠物经济发展实施意见（宁政办发〔2026〕9号）及高淳现场走访实测
+        </div>
+        <div class="page-number">04</div>
+    </div>
+</div>
+
+
+</body>
+</html>
