@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高淳国际慢城区位分析 - “人宠共生”设计咨询汇报</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#E3B92F',   /* 暖阳金 */
+                            olive: '#505840',  /* 深橄榄绿 */
+                            sage: '#78AA73',   /* 叶绿 */
+                            grey: '#ABABAB',   /* 中灰 */
+                            light: '#F5F5F5'   /* 极浅暖灰 */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #FFFFFF;
+            color: #505840;
+        }
+
+        /* 极简卡片和阴影系统 */
+        .glass-card {
+            background: #F5F5F5;
+            border: 1px solid rgba(171, 171, 171, 0.2);
+            box-shadow: 0 4px 24px 0 rgba(80, 88, 64, 0.04);
+        }
+
+        /* 隐藏滚动条 */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 侧边导航提示框 */
+        .nav-tooltip {
+            opacity: 0;
+            transform: translateX(10px);
+            transition: all 0.3s ease;
+            background: #505840;
+            color: #FFFFFF;
+        }
+        .nav-dot:hover .nav-tooltip {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body class="bg-white text-brand-olive overflow-hidden select-none font-sans relative">
+
+    <!-- 极微弱背景环境光阴影 -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0">
+        <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-brand-sage/5 blur-3xl"></div>
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-brand-gold/5 blur-3xl"></div>
+    </div>
+
+    <!-- 顶部导航栏 (Fixed Header) -->
+    <header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-6 md:px-12 py-4 backdrop-blur-md bg-white/85 border-b border-brand-olive/10 transition-all">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-brand-olive/10 flex items-center justify-center border border-brand-olive/20">
+                <i data-lucide="paw-print" class="w-4 h-4 text-brand-olive"></i>
+            </div>
+            <div>
+                <span class="text-xs font-bold tracking-wider uppercase text-brand-olive">GC-PETS 2026</span>
+                <h1 class="text-xs text-brand-grey font-medium">南京高淳全域“人宠共生”设计咨询方案</h1>
+            </div>
+        </div>
+        <div class="text-xs font-mono text-brand-olive/80 flex items-center gap-2">
+            <span>DESIGN CONSULTANCY</span>
+            <span class="text-brand-grey">/</span>
+            <span class="text-brand-gold font-bold">Slide <span id="current-slide-num">1</span> of 7</span>
+        </div>
+    </header>
+
+    <!-- 侧边垂直进度条 (Side Navigation) -->
+    <aside class="fixed right-6 md:right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-center gap-6">
+        <!-- 进度条背景线 -->
+        <div class="absolute top-2 bottom-2 w-[2px] bg-brand-light z-0"></div>
+        <!-- 进度条填充线 (由JS控制高度) -->
+        <div id="vertical-progress" class="absolute top-2 w-[2px] bg-gradient-to-b from-brand-sage to-brand-gold z-0 transition-all duration-300" style="height: 0%;"></div>
+        
+        <!-- 导航点 -->
+        <div class="nav-dot group relative w-3 h-3 rounded-full bg-brand-olive scale-125 cursor-pointer z-10 transition-all duration-300" data-index="0">
+            <div class="nav-tooltip absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-[10px] font-mono whitespace-nowrap pointer-events-none">01 Cover</div>
+        </div>
+        <div class="nav-dot group relative w-3 h-3 rounded-full bg-brand-grey/40 cursor-pointer z-10 transition-all duration-300" data-index="1">
+            <div class="nav-tooltip absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-[10px] font-mono whitespace-nowrap pointer-events-none">02 Macro Location</div>
+        </div>
+        <div class="nav-dot group relative w-3 h-3 rounded-full bg-brand-grey/40 cursor-pointer z-10 transition-all duration-300" data-index="2">
+            <div class="nav-tooltip absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-[10px] font-mono whitespace-nowrap pointer-events-none">03 Transit Network</div>
+        </div>
+        <div class="nav-dot group relative w-3 h-3 rounded-full bg-brand-grey/40 cursor-pointer z-10 transition-all duration-300" data-index="3">
+            <div class="nav-tooltip absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-[10px] font-mono whitespace-nowrap pointer-events-none">04 Micro Topography</div>
+        </div>
+        <div class="nav-dot group relative w-3 h-3 rounded-full bg-brand-grey/40 cursor-pointer z-10 transition-all duration-300" data-index="4">
+            <div class="nav-tooltip absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-[10px] font-mono whitespace-nowrap pointer-events-none">05 Diagnostics</div>
+        </div>
+        <div class="nav-dot group relative w-3 h-3 rounded-full bg-brand-grey/40 cursor-pointer z-10 transition-all duration-300" data-index="5">
+            <div class="nav-tooltip absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-[10px] font-mono whitespace-nowrap pointer-events-none">06 Synergy</div>
+        </div>
+        <div class="nav-dot group relative w-3 h-3 rounded-full bg-brand-grey/40 cursor-pointer z-10 transition-all duration-300" data-index="6">
+            <div class="nav-tooltip absolute right-6 top-1/2 -translate-y-1/2 px-2 py-1 rounded text-[10px] font-mono whitespace-nowrap pointer-events-none">07 Conclusion</div>
+        </div>
+    </aside>
+
+    <!-- 幻灯片主体容器 (Vertical Snap Scrolling) -->
+    <main id="slide-container" class="h-screen w-screen overflow-y-auto overflow-x-hidden snap-y snap-mandatory scroll-smooth no-scrollbar relative z-10">
+        
+        <!-- Slide 1: 分区过渡页 (模仿图片左深绿右白的左右分栏美学) -->
+        <section class="slide snap-start snap-always w-full h-screen grid grid-cols-1 lg:grid-cols-12 overflow-hidden">
+            <!-- 左侧橄榄绿大色块 (模仿PPT slide 1) -->
+            <div class="lg:col-span-5 bg-brand-olive flex flex-col justify-between p-12 py-24 text-white relative">
+                <div class="space-y-2">
+                    <span class="text-brand-sage font-mono text-sm tracking-widest font-bold">11 SEP. 2026</span>
+                    <h4 class="text-base font-medium text-white/90">共生栖居：基于栖息共享理念的环境设计</h4>
+                </div>
+
+                <div class="space-y-4">
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+                        谢谢！
+                    </h2>
+                    <p class="text-lg font-light text-white/80">演讲嘉宾 &nbsp;于景</p>
+                </div>
+
+                <div class="text-[10px] font-mono text-white/40">
+                    GC-PETS BRANDING STAGE
+                </div>
+            </div>
+
+            <!-- 右侧经典留白与文案区 -->
+            <div class="lg:col-span-7 bg-white flex flex-col justify-center items-start p-12 py-24 text-left relative">
+                <div class="space-y-4 max-w-lg">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-sage/10 border border-brand-sage/20 text-brand-sage text-xs font-semibold tracking-wider uppercase">
+                        <span class="w-1.5 h-1.5 rounded-full bg-brand-sage animate-pulse"></span>
+                        Section 02 / Spatial Analysis
+                    </div>
+                    <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-tight text-brand-olive">
+                        高淳国际慢城<br/>
+                        <span class="text-brand-gold">区位分析与空间本底</span>
+                    </h2>
+                    <p class="text-brand-grey text-base md:text-lg font-light leading-relaxed pt-2">
+                        在大区位、大交通、大生态的多维构架下，解构高淳作为长三角“它经济”高溢价度假首选目的地的硬核基因与空间潜能。
+                    </p>
+                </div>
+
+                <div class="mt-12 flex gap-4 text-xs text-brand-grey font-mono border-t border-brand-olive/10 pt-6 w-full max-w-lg">
+                    <div class="flex items-center gap-1"><i data-lucide="compass" class="w-3.5 h-3.5 text-brand-sage"></i> 地理本底</div>
+                    <div>•</div>
+                    <div class="flex items-center gap-1"><i data-lucide="milestone" class="w-3.5 h-3.5 text-brand-gold"></i> 交通通达</div>
+                    <div>•</div>
+                    <div class="flex items-center gap-1"><i data-lucide="network" class="w-3.5 h-3.5 text-brand-olive"></i> “前店后厂”</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 2: 宏观区位——长三角几何中心 -->
+        <section class="slide snap-start snap-always w-full h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 md:px-12 py-24 gap-4 bg-white">
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase text-brand-sage tracking-widest font-mono">01 / Macro Location</span>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-olive flex items-center gap-2">
+                    长三角几何中心与“2小时自驾黄金圈”
+                </h3>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center my-auto overflow-y-auto no-scrollbar py-2">
+                <!-- 左侧地理逻辑分析 (5 cols) -->
+                <div class="lg:col-span-5 space-y-5">
+                    <div class="border-l-2 border-brand-sage/50 pl-4 space-y-2">
+                        <h4 class="text-lg font-bold text-brand-olive">核心客群的自驾生理舒适边界</h4>
+                        <p class="text-sm text-brand-grey leading-relaxed">
+                            带宠旅行高度依赖自驾。研究表明，<strong>2小时以内</strong>的乘车时间能极大降低猫狗在密闭车厢内的焦躁与应激风险。
+                        </p>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 gap-3">
+                        <div class="p-4 rounded-xl bg-brand-light border border-brand-grey/20 flex items-start gap-3">
+                            <span class="text-brand-gold font-bold font-mono text-sm">1.5h</span>
+                            <div>
+                                <h5 class="text-sm font-semibold text-brand-olive">常态化高频圈</h5>
+                                <p class="text-xs text-brand-grey font-light">宁镇扬、苏锡常、皖南（宣城/马鞍山）极速直达，最易激发周末自驾说走就走意愿。</p>
+                            </div>
+                        </div>
+                        <div class="p-4 rounded-xl bg-brand-light border border-brand-grey/20 flex items-start gap-3">
+                            <span class="text-brand-sage font-bold font-mono text-sm">2.5h</span>
+                            <div>
+                                <h5 class="text-sm font-semibold text-brand-olive">高溢价度假圈</h5>
+                                <p class="text-xs text-brand-grey font-light">上海、杭州、合肥三大万亿级消费都市群交汇，锁定中高端携宠度假核心客群。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧极简设计视觉图示 (7 cols) -->
+                <div class="lg:col-span-7 bg-brand-light border border-brand-grey/20 rounded-2xl p-6 h-64 md:h-80 flex flex-col justify-center items-center relative overflow-hidden">
+                    <div class="absolute inset-0 bg-radial-gradient from-brand-sage/5 to-transparent"></div>
+                    
+                    <!-- 极简长三角自驾同心圆图示 -->
+                    <div class="relative w-48 h-48 rounded-full border border-dashed border-brand-sage/20 flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                        <div class="w-32 h-32 rounded-full border border-dashed border-brand-sage/35 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full border border-brand-sage/50 flex items-center justify-center"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- 静态覆盖层 -->
+                    <div class="absolute inset-0 flex flex-col justify-between p-6">
+                        <div class="flex justify-between items-start">
+                            <span class="text-[10px] font-mono text-brand-grey">RADIUS HEATMAP</span>
+                            <span class="text-xs text-brand-sage flex items-center gap-1 font-bold"><i data-lucide="gauge" class="w-3 h-3"></i> 2h自驾圈</span>
+                        </div>
+                        
+                        <!-- 虚拟地图标注 -->
+                        <div class="space-y-2 text-center">
+                            <div class="text-lg font-bold text-brand-olive tracking-widest flex items-center justify-center gap-1">
+                                <i data-lucide="map-pin" class="w-4 h-4 text-brand-gold animate-bounce"></i>
+                                南京 · 高淳
+                            </div>
+                            <p class="text-[11px] text-brand-grey max-w-sm mx-auto">
+                                避开一线城市高压喧嚣，以恰到好处的空间距离换取宠物天性释放的自然尺度。
+                            </p>
+                        </div>
+
+                        <div class="flex justify-between text-[10px] font-mono text-brand-grey">
+                            <span>WEST: HEFEI 2.0h</span>
+                            <span>CENTER: GAO CHUN</span>
+                            <span>EAST: SHANGHAI 2.5h</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 设计推论 (Footer Rule) -->
+            <div class="border-t border-brand-olive/10 pt-3 flex items-center gap-2 text-xs text-brand-gold font-light">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                <span class="font-bold text-brand-olive">设计导则推论：</span> 
+                自驾是绝对主流。方案应在“入淳第一站”（高速下口、核心交通接驳点）布局高显示度、温馨的人宠服务信息亭（Information Kiosk），提供自驾补给与降温。
+            </div>
+        </section>
+
+        <!-- Slide 3: 中观交通——多维通达网络与交通破局 (整合最美S9海上列车图片) -->
+        <section class="slide snap-start snap-always w-full h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 md:px-12 py-24 gap-4 bg-white">
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase text-brand-sage tracking-widest font-mono">02 / Transit Network</span>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-olive">
+                    多维通达的“人宠慢行度假网络”与交通破局
+                </h3>
+            </div>
+
+            <!-- 1:2 黄金非对称格局 (左侧高比例S9展示卡片，右侧上下排布公路与高铁) -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 my-auto overflow-y-auto no-scrollbar py-2">
+                
+                <!-- 左侧 5-col: 航拍图呈现最美地铁S9线 -->
+                <div class="lg:col-span-5 rounded-2xl border border-brand-sage/30 bg-brand-light overflow-hidden relative group h-[380px] flex flex-col justify-end">
+                    <!-- S9号线实景图注入 -->
+                    <img src="image_0bb702.jpg" alt="最美跨湖轻轨地铁S9" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out z-0">
+                    
+                    <!-- 渐变，确保底部文字清晰、有深度感 -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-olive via-transparent to-brand-olive/30 z-10"></div>
+                    
+                    <!-- 顶浮徽标 -->
+                    <div class="absolute top-4 left-4 z-20 flex flex-col gap-1.5">
+                        <span class="px-2.5 py-1 bg-brand-olive text-white text-[10px] font-bold uppercase tracking-wider rounded-md shadow-md">
+                            轨道交通 · 地铁S9
+                        </span>
+                        <span class="px-2 py-0.5 bg-white/40 backdrop-blur-sm text-brand-olive text-[9px] font-mono tracking-wide rounded border border-white/5">
+                            SHIJIU LAKE CROSSING
+                        </span>
+                    </div>
+
+                    <!-- 底部覆盖层：信息图示 -->
+                    <div class="p-5 z-20 space-y-2">
+                        <h4 class="text-lg font-bold text-white tracking-wide">最美跨湖轻轨 · 融冰之旅</h4>
+                        <p class="text-xs text-white/95 leading-relaxed font-light">
+                            宁高城际二期（地铁S9号线）横穿石臼湖。列车在万顷碧波中贴水穿行，拥有直抵人心的治愈性。它完美重构了无车青年群体带上包中宠物的“微度假第一站空间触感”。
+                        </p>
+                        <div class="flex gap-2 pt-1">
+                            <span class="px-2 py-0.5 bg-brand-sage text-white rounded text-[9px] font-mono font-medium">接驳核心痛点</span>
+                            <span class="px-2 py-0.5 bg-brand-gold text-brand-olive rounded text-[9px] font-mono font-medium">站前宠旅转乘</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 右侧 7-col: 上下非对称分布：公路网(自带SVG) 与 宁宣高铁(严谨版) -->
+                <div class="lg:col-span-7 flex flex-col gap-4 justify-between h-[380px]">
+                    
+                    <!-- 上 3/5: 公路网络 (带精细自驾图示) -->
+                    <div class="rounded-xl border border-brand-grey/20 bg-brand-light p-4 flex flex-col md:flex-row gap-4 items-center h-[180px] overflow-hidden relative">
+                        <div class="flex-grow space-y-2 md:max-w-[60%]">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded bg-brand-sage/10 flex items-center justify-center text-brand-sage">
+                                    <i data-lucide="navigation" class="w-3.5 h-3.5"></i>
+                                </div>
+                                <h4 class="text-sm font-bold text-brand-olive">公路网 · 宁高S55 / 溧高S68</h4>
+                            </div>
+                            <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                                宁高高速及溧高高速双轴贯穿。我们通过高精自驾路网规划，打通宁镇扬、苏锡常高能节点，使带宠自驾客群享有“下高速15分钟直插慢城”的高效体验。
+                            </p>
+                            <span class="inline-block text-[10px] text-brand-sage font-mono bg-brand-sage/15 px-2 py-0.5 rounded border border-brand-sage/20 font-medium">
+                                规划核心：自驾廊道节点增设绿化宠跑休憩角
+                            </span>
+                        </div>
+                        
+                        <!-- 右侧嵌入一个高淳高速枢纽自驾网络示意图 (SVG极简设计) -->
+                        <div class="hidden md:flex flex-grow h-full w-1/3 relative items-center justify-center bg-white rounded-lg border border-brand-grey/20 overflow-hidden">
+                            <svg class="absolute inset-0 w-full h-full p-2 text-brand-sage/30" viewBox="0 0 100 100" fill="none">
+                                <!-- 高速干线S55 -->
+                                <path d="M10,90 Q50,50 90,10" stroke="currentColor" stroke-width="2.5" stroke-dasharray="2,2"/>
+                                <!-- 高速干线S68 -->
+                                <path d="M10,30 Q50,50 90,70" stroke="currentColor" stroke-width="1.5"/>
+                                <!-- 高淳出口 -->
+                                <circle cx="50" cy="50" r="5" fill="#E3B92F" class="animate-ping"/>
+                                <circle cx="50" cy="50" r="3.5" fill="#78AA73"/>
+                                <!-- 自驾流线 -->
+                                <path d="M10,90 C30,70 45,55 50,50" stroke="#78AA73" stroke-width="3" stroke-linecap="round"/>
+                                <!-- 坐标标签 -->
+                                <text x="56" y="53" fill="#505840" font-size="6" font-weight="bold">高淳枢纽</text>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- 下 2/5: 高铁网络 (严谨版) -->
+                    <div class="rounded-xl border border-brand-gold/20 bg-brand-gold/5 p-4 flex flex-col justify-center h-[180px] relative">
+                        <div class="absolute top-4 right-4 px-2 py-0.5 bg-brand-gold/15 border border-brand-gold/20 text-brand-olive text-[9px] font-mono font-bold rounded">
+                            UNDER PLANNING (2030)
+                        </div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center gap-2">
+                                <div class="w-6 h-6 rounded bg-brand-gold/10 flex items-center justify-center text-brand-gold">
+                                    <i data-lucide="orbit" class="w-3.5 h-3.5"></i>
+                                </div>
+                                <h4 class="text-sm font-bold text-brand-olive">轨道未来 · 宁宣高铁高淳站</h4>
+                            </div>
+                            
+                            <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                                高淳目前规划有高铁站，确定位于<strong class="text-brand-olive">固城街道禅林山东侧</strong>，属于<strong class="text-brand-olive">宁宣高铁沿线</strong>，设计时速350km/h，<strong class="text-brand-gold font-bold">预计2030年前后建成通车</strong>。它将大幅拉动中远距离无车精细养宠人群的出行半径。
+                            </p>
+                            
+                            <div class="text-[10px] text-brand-olive font-light flex items-center gap-1.5 bg-brand-gold/15 px-2 py-1 rounded">
+                                <i data-lucide="alert-circle" class="w-3 h-3 shrink-0 text-brand-gold"></i>
+                                <span><strong>痛点转化：</strong> 针对高铁站至核心慢城$20\text{ km}$空间接驳空白，提前规划首个“站前人宠智慧集散站”。</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- 设计推论 (Footer Rule) -->
+            <div class="border-t border-brand-olive/10 pt-3 flex items-center gap-2 text-xs text-brand-gold font-light">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                <span class="font-bold text-brand-olive">设计导则推论 (交通痛点痛击)：</span> 
+                高淳最大的交通断点在于“从站口到慢城的核心接驳（$20\text{ km}$）”。我们的空间设计必须提出<strong>“最后20公里人宠无忧驳接计划”</strong>，在S9轻轨高淳站及未来宁宣高铁禅林山站配套建设“宠旅无障碍接驳驿站”。
+            </div>
+        </section>
+
+        <!-- Slide 4: 微观本底——“三山两水五分田”的空间类型学诊断 -->
+        <section class="slide snap-start snap-always w-full h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 md:px-12 py-24 gap-4 bg-white">
+            <div class="space-y-1">
+                <span class="text-xs font-bold uppercase text-brand-sage tracking-widest font-mono">03 / Micro Topography & Zoning</span>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-olive flex justify-between items-center">
+                    <span>“三山两水五分田”的空间类型学诊断</span>
+                    <span class="text-xs text-brand-grey font-normal hidden md:inline">点击下方卡片，切换查看“红黄绿”空间管理机制</span>
+                </h3>
+            </div>
+
+            <!-- 交互式微观区位展示卡片 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-auto overflow-y-auto no-scrollbar py-2">
+                
+                <!-- 桠溪国际慢城 (绿区) -->
+                <div onclick="toggleActiveZone(this)" class="group cursor-pointer p-5 rounded-2xl bg-brand-sage/5 border border-brand-sage/20 hover:border-brand-sage/50 transition-all duration-300 space-y-3 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-brand-sage/25 text-brand-olive text-[10px] font-mono font-bold tracking-wider rounded-bl-xl">
+                        🟢 绿区 (完全放飞)
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-brand-sage text-xs font-mono font-bold">YAXI CITTASLOW</span>
+                        <h4 class="text-lg font-bold text-brand-olive group-hover:text-brand-sage transition-colors">桠溪国际慢城 · 丘陵茶田</h4>
+                    </div>
+                    <p class="text-xs text-brand-grey leading-relaxed font-light">
+                        核心面积约5.8平方公里，坐拥万亩茶田与生态廊道。视野辽阔、空间低密度，是全域规划中最具野性的宠物活动场所。
+                    </p>
+                    <div class="pt-2 border-t border-brand-olive/10 space-y-1.5 text-xs">
+                        <div class="flex items-center gap-2 text-brand-olive">
+                            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-brand-sage shrink-0"></i>
+                            <span><strong>设计触点：</strong> 允许在安全监护下松绳</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-brand-olive">
+                            <i data-lucide="compass" class="w-3.5 h-3.5 text-brand-sage shrink-0"></i>
+                            <span>开发茶田定向越野、落日露营地</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 固城湖水慢城 (黄区) -->
+                <div onclick="toggleActiveZone(this)" class="group cursor-pointer p-5 rounded-2xl bg-brand-gold/5 border border-brand-gold/20 hover:border-brand-gold/50 transition-all duration-300 space-y-3 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-brand-gold/25 text-brand-olive text-[10px] font-mono font-bold tracking-wider rounded-bl-xl">
+                        🟡 黄区 (牵绳通行)
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-brand-gold text-xs font-mono font-bold">GUCHENG LAKE</span>
+                        <h4 class="text-lg font-bold text-brand-olive group-hover:text-brand-gold transition-colors">固城湖水慢城 · 湿地湖泊</h4>
+                    </div>
+                    <p class="text-xs text-brand-grey leading-relaxed font-light">
+                        占地8000余亩，亲水性极高。2026年3月正式升级为宠物友好景区，已具备宠物导览地图及常态化无障碍服务。
+                    </p>
+                    <div class="pt-2 border-t border-brand-olive/10 space-y-1.5 text-xs">
+                        <div class="flex items-center gap-2 text-brand-olive">
+                            <i data-lucide="info" class="w-3.5 h-3.5 text-brand-gold shrink-0"></i>
+                            <span><strong>设计触点：</strong> 必须牵绳，配备密集的拾便箱</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-brand-olive">
+                            <i data-lucide="anchor" class="w-3.5 h-3.5 text-brand-gold shrink-0"></i>
+                            <span>打造人宠共乘湿地木栈道与游船</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 游子山 / 鸟类保护区 (红区) -->
+                <div onclick="toggleActiveZone(this)" class="group cursor-pointer p-5 rounded-2xl bg-brand-grey/5 border border-brand-grey/35 hover:border-brand-grey transition-all duration-300 space-y-3 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 px-3 py-1 bg-brand-grey/25 text-brand-olive text-[10px] font-mono font-bold tracking-wider rounded-bl-xl">
+                        🔴 红区 (宠物禁区/寄存)
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-brand-grey text-xs font-mono font-bold">YOUZI MOUNTAIN & WILD</span>
+                        <h4 class="text-lg font-bold text-brand-olive group-hover:text-brand-grey transition-colors">生态敏感带 · 野生鸟类保护</h4>
+                    </div>
+                    <p class="text-xs text-brand-grey leading-relaxed font-light">
+                        森林覆盖率高、水慢城内的野生动物园及生态敏感鸟类栖息地。为防惊扰应激和交叉感染，严格禁止宠物进入。
+                    </p>
+                    <div class="pt-2 border-t border-brand-olive/10 space-y-1.5 text-xs">
+                        <div class="flex items-center gap-2 text-brand-olive">
+                            <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-brand-grey shrink-0"></i>
+                            <span><strong>设计触点：</strong> 声学与视觉屏障物理隔离</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-brand-olive">
+                            <i data-lucide="home" class="w-3.5 h-3.5 text-brand-grey shrink-0"></i>
+                            <span>入口设立高规格遮阳通风“宠物托管驿站”</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 设计推论 (Footer Rule) -->
+            <div class="border-t border-brand-olive/10 pt-3 flex items-center gap-2 text-xs text-brand-gold font-light">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                <span class="font-bold text-brand-olive">设计导则推论：</span> 
+                利用高淳多样的生态资源，建立“红黄绿”空间标识指引，不搞“一刀切”防线，而是通过智能电子围栏与生态景观造景实现无感隔离。
+            </div>
+        </section>
+
+        <!-- Slide 5: 商业诊断与重构战略 (重磅痛点分析页) -->
+        <section class="slide snap-start snap-always w-full h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 md:px-12 py-24 gap-4 bg-white">
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase text-brand-gold tracking-widest font-mono">04 / Problem Diagnostics</span>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-olive flex justify-between items-center">
+                    <span>从“概念准入”到“经济效益”的诊断与重构</span>
+                    <span class="px-2.5 py-1 bg-brand-gold/15 border border-brand-gold/25 text-brand-olive text-[10px] font-mono font-bold rounded">
+                        CRITICAL GAP ANALYSIS
+                    </span>
+                </h3>
+            </div>
+
+            <!-- 2x2 商业诊断网格 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-auto overflow-y-auto no-scrollbar py-2">
+                
+                <!-- 痛点1 -->
+                <div class="p-4 rounded-xl border border-brand-gold/20 bg-brand-light flex flex-col justify-between gap-3 relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-300">
+                        <i data-lucide="coins" class="w-24 h-24 text-brand-gold"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 bg-brand-gold/25 text-brand-olive text-[9px] font-mono font-bold rounded">GAP 1</span>
+                            <h4 class="text-sm font-bold text-brand-olive">有空间准入 · 无二消触点</h4>
+                        </div>
+                        <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                            <strong>现状症结：</strong> 目前水慢城等宠物友好仅表现为“允许进入的免费大公园”。景区内部缺乏高溢价的餐饮、跟拍、娱乐等**“二次消费（二消）”产品线**，导致客群停留时间虽长，但无法发生深度消费。
+                        </p>
+                    </div>
+                    <div class="text-[10px] text-brand-sage flex items-center gap-1.5 pt-1 border-t border-brand-olive/10 font-bold">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                        <span>设计重构：植入人宠共食景观餐饮舱与落日跟拍驿站。</span>
+                    </div>
+                </div>
+
+                <!-- 痛点2 -->
+                <div class="p-4 rounded-xl border border-brand-gold/20 bg-brand-light flex flex-col justify-between gap-3 relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-300">
+                        <i data-lucide="car-taxi-front" class="w-24 h-24 text-brand-gold"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 bg-brand-gold/25 text-brand-olive text-[9px] font-mono font-bold rounded">GAP 2</span>
+                            <h4 class="text-sm font-bold text-brand-olive">地铁S9极美 · “末端接驳”微瘫痪</h4>
+                        </div>
+                        <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                            <strong>现状症结：</strong> 无车年轻宠主（核心高消费群体）搭乘地铁S9抵达高淳站后，**面临从站口至慢城20km的人宠公共接驳空白**（打车、网约车多拒载宠物），直接封锁了华东地区非自驾流量的转化。
+                        </p>
+                    </div>
+                    <div class="text-[10px] text-brand-sage flex items-center gap-1.5 pt-1 border-t border-brand-olive/10 font-bold">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                        <span>设计重构：在S9高淳站及未来高铁站设立人宠智慧接驳中心。</span>
+                    </div>
+                </div>
+
+                <!-- 痛点3 -->
+                <div class="p-4 rounded-xl border border-brand-gold/20 bg-brand-light flex flex-col justify-between gap-3 relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-300">
+                        <i data-lucide="hourglass" class="w-24 h-24 text-brand-gold"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 bg-brand-gold/25 text-brand-olive text-[9px] font-mono font-bold rounded">GAP 3</span>
+                            <h4 class="text-sm font-bold text-brand-olive">周末极度拥挤 · 工作日资源荒废</h4>
+                        </div>
+                        <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                            <strong>现状症结：</strong> 宠物旅行在高淳呈现极强的“潮汐效应”。周末、节假日一床难求，周一至周五客流却断崖式下跌，导致高淳宠物主题酒店与民宿的长期运营资本回报（ROI）难以拉升。
+                        </p>
+                    </div>
+                    <div class="text-[10px] text-brand-sage flex items-center gap-1.5 pt-1 border-t border-brand-olive/10 font-bold">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                        <span>设计重构：开发工作日“人宠数字游民营地”与宠物社群包场场景。</span>
+                    </div>
+                </div>
+
+                <!-- 痛点4 -->
+                <div class="p-4 rounded-xl border border-brand-gold/20 bg-brand-light flex flex-col justify-between gap-3 relative overflow-hidden group">
+                    <div class="absolute -right-4 -bottom-4 opacity-[0.03] group-hover:opacity-[0.08] transition-opacity duration-300">
+                        <i data-lucide="factory" class="w-24 h-24 text-brand-gold"></i>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="px-2 py-0.5 bg-brand-gold/25 text-brand-olive text-[9px] font-mono font-bold rounded">GAP 4</span>
+                            <h4 class="text-sm font-bold text-brand-olive">产业“后厂”强大 · 文旅“前店”脱节</h4>
+                        </div>
+                        <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                            <strong>现状症结：</strong> 高淳食品产业园（后厂）拥有巨大的功能性宠粮与用品研制能力，但度假区游客（前店）无法感知到高淳的“本土制造硬实力”，产销未发生空间交织，流失了极大的品牌溢价机会。
+                        </p>
+                    </div>
+                    <div class="text-[10px] text-brand-sage flex items-center gap-1.5 pt-1 border-t border-brand-olive/10 font-bold">
+                        <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                        <span>设计重构：设立慢城小镇“原产地宠物新品首发美学快闪馆”。</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- 设计推论 (Footer Rule) -->
+            <div class="border-t border-brand-olive/10 pt-3 flex items-center gap-2 text-xs text-brand-gold font-light">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                <span class="font-bold text-brand-olive">设计与运营破局：</span> 
+                设计不仅是景观的美化，而是**“空间、服务、供应链”的三重重构**。我们将以下述四个设计行动触点，解决上述全部诊断痛点。
+            </div>
+        </section>
+
+        <!-- Slide 6: 产业与文旅协同区位——“前店后厂”的闭环网络 -->
+        <section class="slide snap-start snap-always w-full h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 md:px-12 py-24 gap-4 bg-white">
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase text-brand-sage tracking-widest font-mono">05 / Industrial & Tourism Synergy</span>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-olive">
+                    “前店后厂”的宠物全产业链闭环
+                </h3>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 my-auto items-center overflow-y-auto no-scrollbar py-2">
+                <!-- 左侧：后厂硬实力 (5 cols) -->
+                <div class="lg:col-span-5 p-5 rounded-2xl bg-brand-light border border-brand-grey/20 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold font-mono text-brand-sage bg-brand-sage/15 border border-brand-sage/20 px-2 py-1 rounded">后厂 / BACK-END</span>
+                        <h4 class="text-lg font-bold text-brand-olive">南京都市食品产业园</h4>
+                    </div>
+                    <ul class="space-y-3 text-xs text-brand-grey font-light">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="check" class="w-4 h-4 text-brand-sage shrink-0"></i>
+                            <span><strong>5.5平方公里空间：</strong> 为南京市法定的“宠物食品和用品生产集聚区”提供大体量载体。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="shield-check" class="w-4 h-4 text-brand-sage shrink-0"></i>
+                            <span><strong>一站三中心配套：</strong> 污水集中收集预处理中心、大型灭菌中心、综合检验检测中心，打通高端宠粮制造痛点。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="refresh-cw" class="w-4 h-4 text-brand-sage shrink-0"></i>
+                            <span><strong>供应链无缝转化：</strong> 固城湖优质水产蛋白质，直接就地升级为功能性高端宠粮。</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 中间：联接转换指示 (2 cols, inline on lg, hidden on md) -->
+                <div class="hidden lg:col-span-2 lg:flex flex-col items-center justify-center space-y-2 text-center text-brand-grey">
+                    <i data-lucide="arrow-right-left" class="w-8 h-8 text-brand-sage/55"></i>
+                    <span class="text-[10px] font-mono tracking-wider">15分钟<br/>产业与场景连通</span>
+                </div>
+
+                <!-- 右侧：前店软场景 (5 cols) -->
+                <div class="lg:col-span-5 p-5 rounded-2xl bg-brand-light border border-brand-grey/20 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <span class="text-xs font-bold font-mono text-brand-gold bg-brand-gold/15 border border-brand-gold/20 px-2 py-1 rounded">前店 / FRONT-END</span>
+                        <h4 class="text-lg font-bold text-brand-olive">国际慢城 / 景区与酒店</h4>
+                    </div>
+                    <ul class="space-y-3 text-xs text-brand-grey font-light">
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="star" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                            <span><strong>水慢城试点：</strong> 拥有长三角顶尖人宠露营、野餐、湿地徒步等多元露天自然场景。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="smile" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                            <span><strong>一站式度假综合体：</strong> 携程、丽呈打造慢城国际宠物主题酒店，集宿、医、美、餐饮于一体。</span>
+                        </li>
+                        <li class="flex items-start gap-2">
+                            <i data-lucide="database" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                            <span><strong>天然体验反馈中心：</strong> 宠旅流量为生产研发企业提供“真实场景食用反馈”与新品首发平台。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 设计推论 (Footer Rule) -->
+            <div class="border-t border-brand-olive/10 pt-3 flex items-center gap-2 text-xs text-brand-gold font-light">
+                <i data-lucide="lightbulb" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                <span class="font-bold text-brand-olive">设计导则推论：</span> 
+                设计方案不仅局限于景区，更要开发“高淳限定”的文创包装与宠物互动装置。在慢城小镇核心节点设计“前店后厂”的宠物功能食品/硬件工业美学快闪店。
+            </div>
+        </section>
+
+        <!-- Slide 7: 区位分析总结与设计触点推论 -->
+        <section class="slide snap-start snap-always w-full h-screen flex flex-col justify-center max-w-6xl mx-auto px-6 md:px-12 py-24 gap-4 bg-white">
+            <div class="space-y-2">
+                <span class="text-xs font-bold uppercase text-brand-sage tracking-widest font-mono">06 / Conclusion & Action</span>
+                <h3 class="text-2xl md:text-3xl font-bold text-brand-olive">
+                    高淳区位价值总结与设计师行动点
+                </h3>
+            </div>
+
+            <!-- 设计行动矩阵 -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 my-auto overflow-y-auto no-scrollbar py-2">
+                
+                <!-- 行动1 -->
+                <div class="p-4 rounded-xl bg-brand-light border border-brand-grey/20 space-y-3">
+                    <span class="text-xs font-mono text-brand-sage font-bold">TOUCHPOINT 1</span>
+                    <h4 class="text-sm font-bold text-brand-olive">自驾无缝接驳体系</h4>
+                    <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                        在S55、S68高速下口及宁高枢纽设计“人宠自驾能量驿站”，集成车辆消杀、宠物应急防暑及慢城导览图册分发功能。
+                    </p>
+                </div>
+
+                <!-- 行动2 -->
+                <div class="p-4 rounded-xl bg-brand-light border border-brand-grey/20 space-y-3">
+                    <span class="text-xs font-mono text-brand-sage font-bold">TOUCHPOINT 2</span>
+                    <h4 class="text-sm font-bold text-brand-olive">“红黄绿”精细分区导视</h4>
+                    <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                        打破传统“一刀切”禁止标牌，依据地形敏感度设计由慢城蜗牛符号演化的“渐进式人宠交互导视系统”。
+                    </p>
+                </div>
+
+                <!-- 行动3 -->
+                <div class="p-4 rounded-xl bg-brand-light border border-brand-grey/20 space-y-3">
+                    <span class="text-xs font-mono text-brand-sage font-bold">TOUCHPOINT 3</span>
+                    <h4 class="text-sm font-bold text-brand-olive">慢城标准化微气候驿站</h4>
+                    <p class="text-[11px] text-brand-grey leading-relaxed font-light">
+                        针对48公里大廊道及茶田步道，研发集成“遮阳降温喷雾、高低双层饮水、智能降解拾便、遮蔽休憩”的标准化可复制小品装置。
+                    </p>
+                </div>
+
+                <!-- 行动4 -->
+                <div class="p-4 rounded-xl bg-brand-light border border-brand-grey/20 space-y-3">
+                    <span class="text-xs font-mono text-brand-sage font-bold">TOUCHPOINT 4</span>
+                    <h4 class="text-sm font-bold text-brand-olive">前店后厂工业旅游节点</h4>
+                    <p class="text-[11px] text-slate-400 leading-relaxed font-light text-brand-grey">
+                        在慢城小镇和水慢城入口处，设计兼具美学和交互的“南京都市食品园·高端宠物食品原产地新品首发快闪馆”。
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- 结束语与设计信心 -->
+            <div class="border-t border-brand-olive/10 pt-3 flex justify-between items-center text-xs text-brand-grey font-light">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4 text-brand-sage"></i>
+                    <span>高淳：将长三角最纯粹的<strong>生态慢生活</strong>转化为最高品质的<strong>人宠共生示范区</strong>。</span>
+                </div>
+                <span class="font-mono text-brand-grey hidden md:inline">END OF SECTION 02</span>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- 交互与切换逻辑 -->
+    <script>
+        // 初始化 Lucide 图标
+        lucide.createIcons();
+
+        const slideContainer = document.getElementById('slide-container');
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.nav-dot');
+        const currentSlideNumSpan = document.getElementById('current-slide-num');
+        const verticalProgress = document.getElementById('vertical-progress');
+        
+        let currentSlideIndex = 0;
+        const totalSlides = slides.length;
+
+        // Intersection Observer 监听当前处于视口中心的Slide
+        const observerOptions = {
+            root: slideContainer,
+            rootMargin: '0px',
+            threshold: 0.5 // 当至少50%进入视口时触发
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const index = Array.from(slides).indexOf(entry.target);
+                    updateNavigation(index);
+                }
+            });
+        }, observerOptions);
+
+        slides.forEach(slide => observer.observe(slide));
+
+        // 更新侧边栏状态和顶部数字
+        function updateNavigation(index) {
+            currentSlideIndex = index;
+            
+            // 更新数字
+            currentSlideNumSpan.textContent = index + 1;
+            
+            // 更新侧边点状态
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.classList.add('bg-brand-olive', 'scale-125');
+                    dot.classList.remove('bg-brand-grey/40');
+                } else {
+                    dot.classList.remove('bg-brand-olive', 'scale-125');
+                    dot.classList.add('bg-brand-grey/40');
+                }
+            });
+            
+            // 更新进度条高度
+            const progressPercent = (index / (totalSlides - 1)) * 100;
+            verticalProgress.style.height = `${progressPercent}%`;
+        }
+
+        // 点击侧边点跳转
+        dots.forEach((dot) => {
+            dot.addEventListener('click', (e) => {
+                const index = parseInt(e.currentTarget.getAttribute('data-index'));
+                slides[index].scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // 键盘上下方向键监听，增强翻页体验
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+                e.preventDefault();
+                if (currentSlideIndex < totalSlides - 1) {
+                    slides[currentSlideIndex + 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                e.preventDefault();
+                if (currentSlideIndex > 0) {
+                    slides[currentSlideIndex - 1].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        });
+
+        // 微观区位卡片点击联动效果 (纯前端动效展示)
+        function toggleActiveZone(element) {
+            // 取消其他卡片的缩放效果
+            element.parentElement.querySelectorAll('div').forEach(el => {
+                if(el !== element && el.classList.contains('scale-[1.02]')) {
+                    el.classList.remove('scale-[1.02]', 'bg-brand-light', 'shadow-2xl');
+                }
+            });
+            // 切换当前卡片的高亮样式
+            element.classList.toggle('scale-[1.02]');
+            element.classList.toggle('bg-brand-light');
+            element.classList.toggle('shadow-2xl');
+        }
+    </script>
+</body>
+</html>
