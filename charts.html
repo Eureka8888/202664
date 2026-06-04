@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>宠物经济宏观数据分析看板 - 慢城生态专属</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            gold: '#E3B92F',
+                            olive: '#505840',
+                            sage: '#78AA73',
+                            grey: '#ABABAB',
+                            light: '#F5F5F5'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #FFFFFF;
+            color: #505840;
+        }
+        .premium-card {
+            background: #F5F5F5;
+            border: 1px solid rgba(171, 171, 171, 0.2);
+            box-shadow: 0 4px 20px 0 rgba(80, 88, 64, 0.03);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .premium-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px 0 rgba(80, 88, 64, 0.08);
+            border-color: rgba(120, 170, 115, 0.4);
+        }
+    </style>
+</head>
+<body class="min-h-screen p-4 md:p-8 flex flex-col justify-between relative bg-white">
+
+    <!-- 极简背景淡纹 -->
+    <div class="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-40">
+        <div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-brand-sage/5 blur-3xl"></div>
+        <div class="absolute -bottom-40 -right-40 w-96 h-96 rounded-full bg-brand-gold/5 blur-3xl"></div>
+    </div>
+
+    <div class="max-w-6xl w-full mx-auto space-y-6 z-10 my-auto">
+        
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-brand-olive/10 pb-6">
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="px-2 py-0.5 rounded-full bg-brand-sage/10 border border-brand-sage/20 text-brand-sage text-[10px] font-mono tracking-widest uppercase font-bold">
+                        Market Research Data
+                    </span>
+                </div>
+                <h1 class="text-2xl md:text-3xl font-black text-brand-olive tracking-tight flex items-center gap-3">
+                    中国宠物经济大盘与“它出行”市场潜力分析
+                </h1>
+                <p class="text-xs text-brand-grey font-light">
+                    基于2025/2026年度权威机构消费白皮书与产业年报的量化分析，论证高淳布局宠物文旅的必要性
+                </p>
+            </div>
+            
+            <div class="flex items-center gap-2 bg-brand-light border border-brand-grey/20 rounded-xl px-4 py-2 text-xs text-brand-olive font-mono font-bold">
+                <i data-lucide="trending-up" class="w-4 h-4 text-brand-gold"></i>
+                <span>COMPLEX GROWTH RATE: <span class="text-brand-gold">+15.7%</span></span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <!-- 指标卡 1 -->
+            <div class="premium-card p-5 rounded-2xl flex flex-col justify-between space-y-3 bg-brand-light">
+                <div class="flex justify-between items-center text-brand-olive/70 text-xs">
+                    <span>2025全国宠物经济产业规模</span>
+                    <i data-lucide="bar-chart-2" class="w-4 h-4 text-brand-sage"></i>
+                </div>
+                <div class="space-y-1">
+                    <div class="text-3xl font-black text-brand-olive tracking-tight">8,114 <span class="text-sm font-normal text-brand-grey">亿元</span></div>
+                    <p class="text-[10px] text-brand-sage flex items-center gap-1 font-medium">
+                        <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i> 同比大幅增长 15.7% (逆周期引擎)
+                    </p>
+                </div>
+            </div>
+
+            <!-- 指标卡 2 -->
+            <div class="premium-card p-5 rounded-2xl flex flex-col justify-between space-y-3 bg-brand-light">
+                <div class="flex justify-between items-center text-brand-olive/70 text-xs">
+                    <span>城镇犬猫消费市场规模</span>
+                    <i data-lucide="shopping-bag" class="w-4 h-4 text-brand-sage"></i>
+                </div>
+                <div class="space-y-1">
+                    <div class="text-3xl font-black text-brand-olive tracking-tight">3,126 <span class="text-sm font-normal text-brand-grey">亿元</span></div>
+                    <p class="text-[10px] text-brand-grey">
+                        城镇犬猫数量超 1.26 亿只，消费基数雄厚
+                    </p>
+                </div>
+            </div>
+
+            <!-- 指标卡 3 -->
+            <div class="premium-card p-5 rounded-2xl flex flex-col justify-between space-y-3 bg-brand-light">
+                <div class="flex justify-between items-center text-brand-olive/70 text-xs">
+                    <span>强烈携宠出游意愿占比</span>
+                    <i data-lucide="compass" class="w-4 h-4 text-brand-gold"></i>
+                </div>
+                <div class="space-y-1">
+                    <div class="text-3xl font-black text-brand-gold tracking-tight">70.0% +</div>
+                    <p class="text-[10px] text-brand-gold flex items-center gap-1 font-medium">
+                        最大增量痛点：7成宠主极度渴望带宠出游
+                    </p>
+                </div>
+            </div>
+
+            <!-- 指标卡 4 -->
+            <div class="premium-card p-5 rounded-2xl flex flex-col justify-between space-y-3 bg-brand-light">
+                <div class="flex justify-between items-center text-brand-olive/70 text-xs">
+                    <span>曾为付费宠物出行买单比例</span>
+                    <i data-lucide="credit-card" class="w-4 h-4 text-brand-gold"></i>
+                </div>
+                <div class="space-y-1">
+                    <div class="text-3xl font-black text-brand-olive tracking-tight">50.6%</div>
+                    <p class="text-[10px] text-brand-grey">
+                        超过半数宠主已有高额溢价付费行为
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <!-- 左侧 7 Cols：宠物经济与消费市场成长曲线 -->
+            <div class="lg:col-span-7 premium-card p-6 rounded-2xl space-y-4 flex flex-col justify-between bg-brand-light">
+                <div>
+                    <h2 class="text-base font-bold text-brand-olive flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-sage"></span>
+                        中国宠物经济大盘稳步攀升 (2020-2025)
+                    </h2>
+                    <p class="text-[11px] text-brand-grey font-light mt-0.5">
+                        大盘经济规模复合年增长率达双位数，是抵御文旅寒冬的“情绪高敏感型”刚需资产
+                    </p>
+                </div>
+                
+                <div class="relative h-64 md:h-72 w-full">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+
+            <!-- 右侧 5 Cols：携宠出行市场供需匹配诊断 -->
+            <div class="lg:col-span-5 premium-card p-6 rounded-2xl space-y-4 flex flex-col justify-between bg-brand-light">
+                <div>
+                    <h2 class="text-base font-bold text-brand-olive flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full bg-brand-gold"></span>
+                        “它出游”意愿 vs 付费行动率
+                    </h2>
+                    <p class="text-[11px] text-brand-grey font-light mt-0.5">
+                        超七成宠主渴望出行与过半的付费体验，揭示了极度紧缺的“场景型供应短缺”
+                    </p>
+                </div>
+
+                <div class="relative h-64 md:h-72 w-full flex items-center justify-center">
+                    <canvas id="gaugeChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+        <footer class="border-t border-brand-olive/10 pt-4 flex flex-col md:flex-row justify-between items-start md:items-center text-xs text-brand-olive gap-4">
+            <div class="flex items-center gap-2">
+                <i data-lucide="shield-alert" class="w-4 h-4 text-brand-gold shrink-0"></i>
+                <span><strong>数据论证结论：</strong> 谁能率先消除“人宠共处”阻碍，谁就能直接接管华东地区价值超<strong>百亿元</strong>的宠旅外溢流量。</span>
+            </div>
+            <div class="text-[10px] font-mono text-brand-grey">
+                SOURCES: 《2025-2026年中国宠物行业白皮书》& 艾媒咨询权威发布
+            </div>
+        </footer>
+
+    </div>
+
+    <script>
+        // 初始化 Lucide 图标
+        lucide.createIcons();
+
+        // 1. 宠物大盘趋势成长图表（折柱混合）
+        const trendCtx = document.getElementById('trendChart').getContext('2d');
+        
+        // 渐变色配置
+        const barGradient = trendCtx.createLinearGradient(0, 0, 0, 300);
+        barGradient.addColorStop(0, 'rgba(120, 170, 115, 0.4)');
+        barGradient.addColorStop(1, 'rgba(120, 170, 115, 0.02)');
+
+        new Chart(trendCtx, {
+            type: 'bar',
+            data: {
+                labels: ['2020年', '2021年', '2022年', '2023年', '2024年', '2025年'],
+                datasets: [
+                    {
+                        label: '产业经济大盘 (亿元)',
+                        data: [2953, 3942, 4935, 5928, 7012, 8114],
+                        backgroundColor: barGradient,
+                        borderColor: '#78AA73',
+                        borderWidth: 1.5,
+                        borderRadius: 8,
+                        yAxisID: 'y'
+                    },
+                    {
+                        label: '城镇犬猫消费规模 (亿元)',
+                        data: [1986, 2150, 2380, 2640, 2890, 3126],
+                        type: 'line',
+                        borderColor: '#E3B92F',
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#E3B92F',
+                        pointRadius: 4,
+                        tension: 0.3,
+                        yAxisID: 'y'
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#505840',
+                            font: { family: 'Noto Sans SC', size: 10 }
+                        }
+                    },
+                    tooltip: {
+                        padding: 12,
+                        titleFont: { size: 12, weight: 'bold' },
+                        bodyFont: { size: 11 }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#505840', font: { size: 10 } }
+                    },
+                    y: {
+                        grid: { color: 'rgba(80, 88, 64, 0.05)' },
+                        ticks: { color: '#505840', font: { size: 10 } }
+                    }
+                }
+            }
+        });
+
+        // 2. 宠主出游意愿与行动率供需错配图
+        const gaugeCtx = document.getElementById('gaugeChart').getContext('2d');
+        new Chart(gaugeCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['强烈携宠出游意愿 (70%)', '已有付费出行行为 (50.6%)', '观望或未转化市场'],
+                datasets: [{
+                    data: [70, 50.6, 29.4],
+                    backgroundColor: [
+                        '#E3B92F',  // 暖阳金 (意愿)
+                        '#78AA73',  // 叶绿 (付费)
+                        '#ABABAB'   // 中灰背景
+                    ],
+                    borderColor: '#F5F5F5',
+                    borderWidth: 2,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '70%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#505840',
+                            padding: 20,
+                            font: { family: 'Noto Sans SC', size: 10 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return ` ${context.label}: ${context.raw}%`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
