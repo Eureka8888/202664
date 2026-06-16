@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高淳慢城实地调研报告 - 场景重构与经济路径研判</title>
+    <!-- Tailwind CSS & FontAwesome for Premium UI and Icons -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        olive: '#505840',
+                        gold: '#E3B92F',
+                        leaf: '#78AA73',
+                        softGray: '#F5F5F5',
+                        borderGray: '#ABABAB'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: #E2E8F0;
+        }
+        .slide-stage {
+            aspect-ratio: 16 / 9;
+            width: 100%;
+            max-width: 1280px;
+            max-height: 720px;
+        }
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+        .slide.active {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.99); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-height-screen flex flex-col items-center justify-center p-4 md:p-8">
+
+    <!-- Main PPT Viewer Container -->
+    <div class="relative w-full max-w-[1280px] bg-white rounded-2xl shadow-2xl overflow-hidden slide-stage flex flex-col justify-between p-12 border border-slate-200">
+        
+        <!-- Top Tech Style Bar Line -->
+        <div class="absolute top-0 left-0 w-full h-[6px] bg-gradient-to-r from-olive via-leaf to-gold"></div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 1: COVER PAGE -->
+        <!-- ========================================== -->
+        <div class="slide active flex-col justify-between h-full" id="slide-1">
+            <div class="mt-8">
+                <span class="inline-block px-3 py-1 bg-olive text-white text-xs font-bold tracking-wider rounded mb-6">FIELD RESEARCH REPORT</span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-olive leading-tight tracking-tight">
+                    南京高淳慢城实地调研报告
+                </h1>
+                <p class="text-lg md:text-xl text-leaf mt-4 font-normal">
+                    基于单日全域核心节点的空间本底、运营现状与资源禀赋实证分析
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-8 border-t border-slate-100 pt-8 mb-4">
+                <div>
+                    <p class="text-xs text-borderGray font-medium">调研时间</p>
+                    <p class="text-sm text-olive font-bold mt-1">2026年6月</p>
+                </div>
+                <div>
+                    <p class="text-xs text-borderGray font-medium">研究对象</p>
+                    <p class="text-sm text-olive font-bold mt-1">高淳慢城核心旅游生态、闲置资产及产业节点</p>
+                </div>
+                <div>
+                    <p class="text-xs text-borderGray font-medium">报告用途</p>
+                    <p class="text-sm text-olive font-bold mt-1">Figma UI/UX 概念重构与设计资产推演底座</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 2: OVERVIEW MATRIX -->
+        <!-- ========================================== -->
+        <div class="slide flex-col justify-between h-full" id="slide-2">
+            <div>
+                <div class="border-l-4 border-gold pl-4 mb-6">
+                    <h2 class="text-3xl font-bold text-olive">全域视察：9大核心实地调研节点分布</h2>
+                    <p class="text-sm text-slate-500 mt-1">对高淳“生态核心、乡村住宿、消极空间、现代休闲”多维节点的分类梳理</p>
+                </div>
+                
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-olive text-white text-sm">
+                                <th class="p-4 rounded-l-lg font-bold w-1/4">空间节点分类</th>
+                                <th class="p-4 font-bold w-1/4">涉及实地地名</th>
+                                <th class="p-4 rounded-r-lg font-bold w-2/4">核心现状本底 与 关键特征描述</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-xs md:text-sm text-slate-700 divide-y divide-slate-100">
+                            <tr class="hover:bg-softGray transition-colors">
+                                <td class="p-3 font-bold text-olive">核心生态/公共空间</td>
+                                <td class="p-3">国际慢城桃花扇广场、固城湖水慢城、青山茶场</td>
+                                <td class="p-3 text-slate-600">兼具大规模自然体量与既有大型赛事流量，具备萌宠/动物本底，但公共导向与常态化二消极其薄弱。</td>
+                            </tr>
+                            <tr class="hover:bg-softGray transition-colors">
+                                <td class="p-3 font-bold text-olive">现代休闲/复合农业</td>
+                                <td class="p-3">巴克兔农场、矿坑慢咖啡、沙矿坑湖（征用中）</td>
+                                <td class="p-3 text-slate-600">展现出积极的现代商业自营能力。具备有机食品供应链接口与极佳的极限地形资产（深水矿坑），是高溢价重构的潜力锚点。</td>
+                            </tr>
+                            <tr class="hover:bg-softGray transition-colors">
+                                <td class="p-3 font-bold text-olive">乡村住宿/文旅小镇</td>
+                                <td class="p-3">归来兮度假庄园酒店、慢城小镇</td>
+                                <td class="p-3 text-slate-600">存在“重资产硬件”与“软性适宠运营”的供需错配。丽呈宠物酒店作为战略合作入驻，正成为头部集聚锚固点。</td>
+                            </tr>
+                            <tr class="hover:bg-softGray transition-colors">
+                                <td class="p-3 font-bold text-olive">公共展陈/消极空间</td>
+                                <td class="p-3">慢城展馆（游客中心内部）</td>
+                                <td class="p-3 text-slate-600">处于典型的“有资产、无运维”消极休眠状态，未能发挥慢城IP的叙事与流量前置集散功能。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 3: ECOLOGICAL & PUBLIC NODES -->
+        <!-- ========================================== -->
+        <div class="slide flex-col justify-between h-full" id="slide-3">
+            <div>
+                <div class="border-l-4 border-gold pl-4 mb-4">
+                    <h2 class="text-3xl font-bold text-olive">节点剖析 01：核心生态景区与公共开放空间</h2>
+                    <p class="text-sm text-slate-500 mt-1">桃花扇广场、固城湖水慢城及青山茶场的优势禀赋与运营痛点</p>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-6 mt-4">
+                    <!-- Card 1 -->
+                    <div class="bg-softGray p-5 rounded-xl border-l-4 border-leaf flex flex-col justify-between h-[360px]">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="px-2 py-0.5 bg-leaf/10 text-leaf text-xs font-bold rounded">无门票制</span>
+                                <i class="fa-solid fa-tree text-leaf text-lg"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-olive mb-2">国际慢城桃花扇广场</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                拥有大面积天然大草坪、花海视觉景观。场地内引入了动物资源（鹿），且具备举办大型户外活动（音乐节）的空间经验。
+                            </p>
+                        </div>
+                        <div class="bg-white/80 p-3 rounded border border-slate-100 mt-2">
+                            <p class="text-xs font-bold text-gold"><i class="fa-solid fa-circle-check mr-1"></i> 已实现物理隔离分区</p>
+                            <p class="text-[11px] text-slate-500 mt-1">宠物友好与亲子旅游实现了明确的物理分区，有效平抑人宠冲突。</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="bg-softGray p-5 rounded-xl border-l-4 border-olive flex flex-col justify-between h-[360px]">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="px-2 py-0.5 bg-olive/10 text-olive text-xs font-bold rounded">有门票制</span>
+                                <i class="fa-solid fa-paw text-olive text-lg"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-olive mb-2">固城湖水慢城</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                相比国际慢城更靠近市区。拥有萌宠乐园（羊、鹿）以及红山动物园分部（湿地动物园），拥有极高密度的草坪、荷花池和季节性花海。
+                            </p>
+                        </div>
+                        <div class="bg-amber-50/80 p-3 rounded border border-amber-100 mt-2">
+                            <p class="text-xs font-bold text-olive"><i class="fa-solid fa-triangle-exclamation mr-1"></i> 缺乏自主权</p>
+                            <p class="text-[11px] text-slate-500 mt-1">湿地动物园作为分部无自主权，且门票机制一定程度上拦截了日常携宠市民的高频消费。</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 -->
+                    <div class="bg-softGray p-5 rounded-xl border-l-4 border-gold flex flex-col justify-between h-[360px]">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="px-2 py-0.5 bg-gold/10 text-gold text-xs font-bold rounded">传统观光</span>
+                                <i class="fa-solid fa-leaf text-gold text-lg"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-olive mb-2">青山茶场</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                知名影视剧《人民的名义》实景取景地。目前属于传统低价旅游团的核心打卡地点之一，主要开展常规采茶活动。
+                            </p>
+                        </div>
+                        <div class="bg-red-50 p-3 rounded border border-red-100 mt-2">
+                            <p class="text-xs font-bold text-red-600"><i class="fa-solid fa-circle-xmark mr-1"></i> 典型“有流量无二消”</p>
+                            <p class="text-[11px] text-red-500 mt-1">路遇南京跟团阿姨坦言：“被拉过来完全不知道好玩在哪”。顶级影视IP长尾效能流失严重。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 4: ACCOMMODATION & TOWN ASSETS -->
+        <!-- ========================================== -->
+        <div class="slide flex-col justify-between h-full" id="slide-4">
+            <div>
+                <div class="border-l-4 border-gold pl-4 mb-4">
+                    <h2 class="text-3xl font-bold text-olive">节点剖析 02：住宿与城镇重资产的“软硬错配”</h2>
+                    <p class="text-sm text-slate-500 mt-1">归来兮度假庄园酒店与慢城小镇的经营现状与空间统筹</p>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-8 mt-4">
+                    <!-- Left: Hotel -->
+                    <div class="bg-amber-50/50 p-6 rounded-xl border border-amber-100 h-[360px] flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs font-bold text-gold uppercase tracking-wider">重资产硬件特征</span>
+                                <i class="fa-solid fa-hotel text-gold text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-olive mb-3">归来兮度假庄园酒店</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                定位高端，拥有40多栋独立独栋别墅资产，配备成熟的内部接驳车系统。
+                            </p>
+                            <div class="bg-white p-3 rounded border border-amber-100 text-[11px] text-slate-600 italic">
+                                <span class="font-bold text-olive">运营现状访谈：</span> “虽然允许宠物准入但无任何配套。目前存在在对外宣传‘宠物友好’方面的顾虑，担心引发普通高端客户与携宠客群的空间不兼容问题，前期设计时未配置动线硬隔离。”
+                            </div>
+                        </div>
+                        <p class="text-xs font-bold text-olive border-t border-amber-100 pt-3">
+                            <i class="fa-solid fa-arrow-right-long text-gold mr-1"></i> 实地调研揭示了高端配套与细分运营服务之间的错配
+                        </p>
+                    </div>
+
+                    <!-- Right: Town & Exhibition -->
+                    <div class="bg-softGray p-6 rounded-xl border border-slate-200 h-[360px] flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="text-xs font-bold text-leaf uppercase tracking-wider">空间资源现状</span>
+                                <i class="fa-solid fa-city text-leaf text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold text-olive mb-3">慢城小镇 / 慢城展馆</h3>
+                            <ul class="text-xs text-slate-600 space-y-2">
+                                <li>● <strong class="text-olive">大量空置资产：</strong> 慢城小镇目前使用的空间极局限（仅银发中心及古琴非遗房），粮仓美术馆等高价值建筑处于闲置状态。</li>
+                                <li>● <strong class="text-leaf">战略合作规划：</strong> 携程战略合作项目“丽呈宠物酒店”正在建设规划中，构成未来产业链支点。</li>
+                                <li>● <strong class="text-red-500">展陈空间状态：</strong> 游客中心内部慢城展厅介绍慢城由来及规划，目前处于无运营维护状态。</li>
+                            </ul>
+                        </div>
+                        <p class="text-xs font-bold text-leaf border-t border-slate-200 pt-3">
+                            <i class="fa-solid fa-circle-plus mr-1"></i> 小镇具备大规模高质量睡眠资产，极具唤醒空间红利潜力
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SLIDE 5: COMPLEX LEISURE & MODERN AG -->
+        <!-- ========================================== -->
+        <div class="slide flex-col justify-between h-full" id="slide-5">
+            <div>
+                <div class="border-l-4 border-gold pl-4 mb-4">
+                    <h2 class="text-3xl font-bold text-olive">节点剖析 03：复合休闲与现代化农业的产业现状</h2>
+                    <p class="text-sm text-slate-500 mt-1">巴克兔农场、矿坑慢咖啡及沙矿坑湖的运营机制与地形本底</p>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-6 mt-4">
+                    <!-- Node 1 -->
+                    <div class="bg-softGray p-5 rounded-xl flex flex-col justify-between h-[360px] border border-slate-200">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="px-2 py-0.5 bg-leaf/10 text-leaf text-xs font-bold rounded">盒马供应商</span>
+                                <i class="fa-solid fa-carrot text-leaf text-lg"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-olive mb-2">巴克兔农场</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                                主打有机生态食品，成功落地高附加值采摘体验，直接面向高端酒店客人提供特色农副产品。
+                            </p>
+                            <p class="text-xs text-slate-600 leading-relaxed">
+                                线上小程序与微信网店体系健全，具备极成熟的现代农业D2C供应链以及线上渠道覆盖能力。
+                            </p>
+                        </div>
+                        <span class="text-xs font-bold text-leaf bg-white/80 p-2 rounded text-center border border-slate-100">
+                            现代农业产销体系标杆
+                        </span>
+                    </div>
+                    <!-- Node 2 -->
+                    <div class="bg-softGray p-5 rounded-xl flex flex-col justify-between h-[360px] border border-slate-200">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="px-2 py-0.5 bg-olive/10 text-olive text-xs font-bold rounded">深度矿坑</span>
+                                <i class="fa-solid fa-mug-hot text-olive text-lg"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-olive mb-2">矿坑 矿坑慢咖啡</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                场地拥有极为独特、具备天然视觉震撼力的水库深度矿坑湖。
+                            </p>
+                            <div class="flex items-center gap-4 bg-white/80 p-3 rounded border border-slate-100">
+                                <div class="text-2xl font-black text-olive">30M</div>
+                                <div class="text-[11px] text-slate-500">水库深度矿坑湖，目前用于垂钓业态与咖啡轻餐饮</div>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-olive bg-white/80 p-2 rounded text-center border border-slate-100">
+                            天然稀缺视觉景观地形
+                        </span>
+                    </div>
+                    <!-- Node 3 -->
+                    <div class="bg-softGray p-5 rounded-xl flex flex-col justify-between h-[360px] border border-slate-200">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <span class="px-2 py-0.5 bg-gold/10 text-gold text-xs font-bold rounded">收储统筹中</span>
+                                <i class="fa-solid fa-snowflake text-gold text-lg"></i>
+                            </div>
+                            <h3 class="text-lg font-bold text-olive mb-2">沙矿坑 湖</h3>
+                            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                                目前资产处于政府集体征用与统一规划收储阶段，物理参数深度约8m，适合大规模主题招商。
+                            </p>
+                            <div class="bg-amber-50 p-3 rounded border border-amber-100 text-[11px] text-slate-600">
+                                <p class="font-bold text-olive"><i class="fa-solid fa-bullhorn text-gold mr-1"></i> 招商洽谈进展：</p>
+                                <p class="mt-1">目前正积极与大型滑雪场项目投资方进行深度接洽沟通。</p>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-gold bg-white/80 p-2 rounded text-center border border-slate-100">
+                            重大运动项目招商核心储备
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- NAVIGATION SLIDE CONTROLS (PPT VIEWER BAR) -->
+        <!-- ========================================== -->
+        <div class="slide-footer flex justify-between items-center border-t border-slate-100 pt-4 mt-auto">
+            <div class="flex items-center gap-4">
+                <span class="text-xs text-slate-400 uppercase tracking-widest font-semibold" id="slide-section-label">调研实地摸排与底座建立</span>
+                <span class="text-[11px] px-2 py-0.5 bg-slate-100 text-slate-500 rounded font-medium" id="slide-num-label">Slide 1 of 5</span>
+            </div>
+            
+            <!-- Bullet Indicators -->
+            <div class="flex items-center gap-2">
+                <button onclick="goToSlide(1)" class="w-2.5 h-2.5 rounded-full bg-olive transition-all duration-300 bullet-dot" id="dot-1"></button>
+                <button onclick="goToSlide(2)" class="w-2.5 h-2.5 rounded-full bg-slate-200 transition-all duration-300 bullet-dot" id="dot-2"></button>
+                <button onclick="goToSlide(3)" class="w-2.5 h-2.5 rounded-full bg-slate-200 transition-all duration-300 bullet-dot" id="dot-3"></button>
+                <button onclick="goToSlide(4)" class="w-2.5 h-2.5 rounded-full bg-slate-200 transition-all duration-300 bullet-dot" id="dot-4"></button>
+                <button onclick="goToSlide(5)" class="w-2.5 h-2.5 rounded-full bg-slate-200 transition-all duration-300 bullet-dot" id="dot-5"></button>
+            </div>
+
+            <!-- Arrow Controllers -->
+            <div class="flex items-center gap-2">
+                <button onclick="prevSlide()" class="w-8 h-8 rounded-full bg-softGray hover:bg-olive hover:text-white text-olive flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <button onclick="nextSlide()" class="w-8 h-8 rounded-full bg-softGray hover:bg-olive hover:text-white text-olive flex items-center justify-center transition-all">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PPT Navigation Javascript -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 5;
+        
+        const sectionLabels = {
+            1: "项目立项 / 封面规格",
+            2: "全域九大节点分类属性矩阵",
+            3: "生态与公共空间 / 桃花扇、水慢城、茶场",
+            4: "乡村住宿与重资产 / 归来兮庄园与小镇空间现状",
+            5: "复合休闲与现代化农业 / 巴克兔农场与矿坑本底"
+        };
+
+        function showSlide(slideIndex) {
+            // Validate limits
+            if (slideIndex < 1) slideIndex = totalSlides;
+            if (slideIndex > totalSlides) slideIndex = 1;
+            
+            currentSlide = slideIndex;
+
+            // Hide all slides
+            for (let i = 1; i <= totalSlides; i++) {
+                document.getElementById(`slide-${i}`).classList.remove('active');
+                document.getElementById(`dot-${i}`).classList.remove('bg-olive', 'w-5');
+                document.getElementById(`dot-${i}`).classList.add('bg-slate-200');
+            }
+
+            // Show current
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            
+            // Highlight current bullet
+            const activeDot = document.getElementById(`dot-${currentSlide}`);
+            activeDot.classList.remove('bg-slate-200');
+            activeDot.classList.add('bg-olive', 'w-5');
+
+            // Update Labels
+            document.getElementById('slide-num-label').innerText = `Slide ${currentSlide} of ${totalSlides}`;
+            document.getElementById('slide-section-label').innerText = sectionLabels[currentSlide];
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function goToSlide(index) {
+            showSlide(index);
+        }
+
+        // Add keyboard arrow support
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowRight') {
+                nextSlide();
+            } else if (event.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+
+        // Initialize first state
+        window.onload = function() {
+            showSlide(1);
+        };
+    </script>
+
+</body>
+</html>
