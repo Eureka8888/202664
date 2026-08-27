@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>街头经理｜数据指标框架 V1.0</title>
+  <style>
+    :root {
+      --bg: #f5f7fa;
+      --panel: #ffffff;
+      --text: #18202b;
+      --muted: #667085;
+      --line: #e4e8ef;
+      --blue: #2868d8;
+      --blue-soft: #edf4ff;
+      --teal: #07866f;
+      --teal-soft: #eaf8f5;
+      --amber: #a66100;
+      --amber-soft: #fff6e5;
+      --red: #b93838;
+      --red-soft: #fff0f0;
+      --radius: 16px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--bg); color: var(--text); font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif; line-height: 1.65; }
+    button, input { font: inherit; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .page { max-width: 1180px; margin: 0 auto; padding: 28px 24px 64px; }
+    .hero { position: relative; overflow: hidden; padding: 32px; border: 1px solid var(--line); border-radius: 22px; background: var(--panel); }
+    .hero::after { content: ""; position: absolute; right: -72px; top: -92px; width: 260px; height: 260px; border: 42px solid var(--blue-soft); border-radius: 50%; }
+    .eyebrow { margin: 0 0 10px; color: var(--blue); font-size: 13px; font-weight: 700; letter-spacing: .08em; }
+    h1 { position: relative; z-index: 1; margin: 0; max-width: 760px; font-size: clamp(30px, 5vw, 52px); line-height: 1.15; letter-spacing: -.03em; }
+    .subtitle { position: relative; z-index: 1; margin: 14px 0 0; max-width: 760px; color: var(--muted); font-size: 16px; }
+    .source { position: relative; z-index: 1; margin-top: 18px; font-size: 13px; color: var(--muted); }
+    .topline { display: grid; grid-template-columns: 1.2fr .8fr; gap: 16px; margin-top: 16px; }
+    .north-star, .warning-card { min-height: 170px; padding: 24px; border-radius: var(--radius); }
+    .north-star { background: #162d57; color: #fff; }
+    .warning-card { background: var(--amber-soft); border: 1px solid #f1d8a7; }
+    .label { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; opacity: .72; }
+    .north-star h2 { margin: 14px 0 6px; font-size: 28px; }
+    .north-star p, .warning-card p { margin: 0; }
+    .formula { margin-top: 14px; padding: 12px 14px; border-radius: 10px; background: rgba(255,255,255,.1); font-size: 14px; }
+    .warning-card h2 { margin: 14px 0 8px; font-size: 21px; color: #754600; }
+    .tabs { position: sticky; top: 0; z-index: 20; display: flex; gap: 8px; margin: 22px 0 18px; padding: 9px; overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.94); backdrop-filter: blur(8px); }
+    .tab { flex: 1; min-width: 108px; border: 0; border-radius: 10px; padding: 10px 14px; background: transparent; color: var(--muted); cursor: pointer; }
+    .tab:hover { background: #f3f6fa; color: var(--text); }
+    .tab.active { background: var(--blue); color: white; font-weight: 700; }
+    .panel { display: none; }
+    .panel.active { display: block; animation: appear .18s ease-out; }
+    @keyframes appear { from { opacity: .4; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+    .section-title { margin: 30px 0 8px; font-size: 24px; }
+    .section-lead { margin: 0 0 18px; color: var(--muted); }
+    .flow { display: grid; grid-template-columns: repeat(6, minmax(0,1fr)); gap: 9px; margin: 18px 0 28px; }
+    .flow-step { position: relative; min-height: 92px; padding: 15px 12px; border: 1px solid var(--line); border-radius: 13px; background: var(--panel); }
+    .flow-step:not(:last-child)::after { content: "›"; position: absolute; right: -9px; top: 31px; z-index: 2; width: 18px; height: 26px; color: var(--blue); background: var(--bg); text-align: center; font-size: 22px; }
+    .step-no { display: inline-flex; width: 24px; height: 24px; align-items: center; justify-content: center; border-radius: 50%; background: var(--blue-soft); color: var(--blue); font-size: 12px; font-weight: 700; }
+    .flow-step strong { display: block; margin-top: 9px; font-size: 14px; }
+    .flow-step small { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; }
+    .grid-5 { display: grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 12px; }
+    .metric-card { padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    .metric-card .icon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: var(--blue-soft); color: var(--blue); font-weight: 800; }
+    .metric-card:nth-child(2) .icon, .metric-card:nth-child(3) .icon { color: var(--teal); background: var(--teal-soft); }
+    .metric-card:nth-child(5) .icon { color: var(--amber); background: var(--amber-soft); }
+    .metric-card h3 { margin: 13px 0 5px; font-size: 17px; }
+    .metric-card .question { min-height: 42px; margin: 0; color: var(--muted); font-size: 13px; }
+    .metric-card ul { margin: 14px 0 0; padding-left: 18px; font-size: 13px; }
+    .metric-card li + li { margin-top: 5px; }
+    .callout { margin-top: 16px; padding: 16px 18px; border-left: 4px solid var(--blue); border-radius: 0 12px 12px 0; background: var(--blue-soft); }
+    .callout strong { display: block; margin-bottom: 4px; }
+    .strategy-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+    .strategy { padding: 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--panel); }
+    .strategy b { display: block; margin-bottom: 7px; }
+    .strategy p { margin: 0; color: var(--muted); font-size: 13px; }
+    .pill { display: inline-block; margin-bottom: 9px; padding: 3px 8px; border-radius: 999px; color: var(--teal); background: var(--teal-soft); font-size: 11px; font-weight: 700; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+    table { width: 100%; border-collapse: collapse; min-width: 760px; }
+    th, td { padding: 13px 15px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; font-size: 13px; }
+    th { background: #f7f9fc; color: var(--muted); font-weight: 700; }
+    tr:last-child td { border-bottom: 0; }
+    code { display: inline-block; padding: 2px 6px; border-radius: 6px; background: #f0f3f7; color: #344054; font-family: Consolas, monospace; font-size: 12px; }
+    .filter-row { display: flex; gap: 10px; margin: 14px 0; }
+    .filter { border: 1px solid var(--line); border-radius: 10px; padding: 9px 12px; background: white; color: var(--muted); cursor: pointer; }
+    .filter.active { border-color: var(--blue); color: var(--blue); background: var(--blue-soft); }
+    .decision-list { display: grid; gap: 10px; }
+    .decision { display: grid; grid-template-columns: 180px 1fr 120px; gap: 14px; align-items: center; padding: 15px 18px; border: 1px solid var(--line); border-radius: 13px; background: var(--panel); }
+    .decision .signal { font-weight: 700; }
+    .decision .meaning { color: var(--muted); font-size: 13px; }
+    .result-tag { justify-self: end; padding: 5px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+    .tag-adjust { color: var(--amber); background: var(--amber-soft); }
+    .tag-keep { color: var(--teal); background: var(--teal-soft); }
+    .tag-stop { color: var(--red); background: var(--red-soft); }
+    details { margin-top: 12px; border: 1px solid var(--line); border-radius: 13px; background: var(--panel); }
+    summary { cursor: pointer; padding: 15px 18px; font-weight: 700; }
+    details > div { padding: 0 18px 17px; color: var(--muted); font-size: 13px; }
+    .footnote { margin-top: 28px; padding: 14px 16px; border-radius: 12px; color: var(--muted); background: #eef1f5; font-size: 12px; }
+    .print-button { position: fixed; right: 24px; bottom: 24px; z-index: 30; border: 0; border-radius: 999px; padding: 12px 18px; color: white; background: #18202b; cursor: pointer; box-shadow: 0 8px 24px rgba(24,32,43,.18); }
+    @media (max-width: 900px) {
+      .topline, .strategy-grid { grid-template-columns: 1fr; }
+      .grid-5 { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .flow { grid-template-columns: repeat(3, minmax(0,1fr)); }
+      .flow-step:nth-child(3)::after { display: none; }
+      .decision { grid-template-columns: 1fr; gap: 5px; }
+      .result-tag { justify-self: start; }
+    }
+    @media (max-width: 560px) {
+      .page { padding: 14px 12px 50px; }
+      .hero { padding: 24px 20px; }
+      .topline, .grid-5, .flow { grid-template-columns: 1fr; }
+      .flow-step::after { display: none !important; }
+      .tabs { top: 0; }
+      .tab { min-width: 92px; padding: 9px 10px; }
+      .print-button { display: none; }
+    }
+    @media print {
+      body { background: white; }
+      .page { max-width: none; padding: 0; }
+      .tabs, .print-button { display: none; }
+      .panel { display: block !important; page-break-inside: avoid; }
+      .hero, .metric-card, .strategy, .table-wrap, .decision, details { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <p class="eyebrow">ALLSTAR · 数据验证方案 V1.0</p>
+      <h1>街头经理<br>新玩法指标框架</h1>
+      <p class="subtitle">不验证“功能有没有人点”，而是验证：新玩法是否吸引目标玩家、赛前决策是否成立、核心循环能否持续。</p>
+      <p class="source">依据：<a href="https://doc.weixin.qq.com/sheet/e3_AXsA8AYSAGsCNpx12xButTjqv1j2j?scode=AJEAIQdfAAo3ZADg5hAXsA8AYSAGs&tab=4m24r9" target="_blank" rel="noreferrer">《ALLSTAR-街头经理》功能设计</a></p>
+    </header>
+
+    <section class="topline">
+      <article class="north-star">
+        <p class="label">北极星指标</p>
+        <h2>周期有效参与率</h2>
+        <p>判断新玩法有没有真正进入玩家的日常选择。</p>
+        <div class="formula">周期内完成 ≥1 局有效结算的玩家 ÷ 符合参与条件的活跃玩家</div>
+      </article>
+      <article class="warning-card">
+        <p class="label">最重要的拆分</p>
+        <h2>必须单看轻度玩家</h2>
+        <p>玩法目标是扩展街头受众。如果只有原街头核心玩家迁移过来，参与率再高也不代表目标成立。</p>
+      </article>
+    </section>
+
+    <nav class="tabs" aria-label="内容导航">
+      <button class="tab active" data-panel="overview">一页总览</button>
+      <button class="tab" data-panel="metrics">指标拆解</button>
+      <button class="tab" data-panel="events">埋点清单</button>
+      <button class="tab" data-panel="decision">数据判定</button>
+    </nav>
+
+    <section id="overview" class="panel active">
+      <h2 class="section-title">玩法验证链路</h2>
+      <p class="section-lead">玩家每走一步，都要能回答“为什么继续”或“为什么离开”。</p>
+      <div class="flow">
+        <div class="flow-step"><span class="step-no">1</span><strong>入口触达</strong><small>是否感兴趣</small></div>
+        <div class="flow-step"><span class="step-no">2</span><strong>领取与质押</strong><small>是否愿意投入</small></div>
+        <div class="flow-step"><span class="step-no">3</span><strong>发牌与决策</strong><small>策略是否成立</small></div>
+        <div class="flow-step"><span class="step-no">4</span><strong>匹配与比赛</strong><small>等待是否可接受</small></div>
+        <div class="flow-step"><span class="step-no">5</span><strong>结算奖励</strong><small>回报是否清楚</small></div>
+        <div class="flow-step"><span class="step-no">6</span><strong>再次参赛</strong><small>循环是否持续</small></div>
+      </div>
+
+      <h2 class="section-title">首版只看这五类</h2>
+      <div class="grid-5">
+        <article class="metric-card">
+          <span class="icon">01</span><h3>吸引力</h3><p class="question">玩家愿不愿意试一次？</p>
+          <ul><li>入口点击率</li><li>首次有效开局率</li><li>质押取消率</li></ul>
+        </article>
+        <article class="metric-card">
+          <span class="icon">02</span><h3>循环健康</h3><p class="question">能否顺利从开局走到结算？</p>
+          <ul><li>完赛率</li><li>结算领取率</li><li>单局总耗时</li></ul>
+        </article>
+        <article class="metric-card">
+          <span class="icon">03</span><h3>策略有效</h3><p class="question">选择真的影响结果吗？</p>
+          <ul><li>分档保留率</li><li>重随后改善率</li><li>阵容胜率差</li></ul>
+        </article>
+        <article class="metric-card">
+          <span class="icon">04</span><h3>持续参与</h3><p class="question">玩家打完还想不想再来？</p>
+          <ul><li>当日再次参赛率</li><li>周期复玩率</li><li>失败后续玩率</li></ul>
+        </article>
+        <article class="metric-card">
+          <span class="icon">05</span><h3>风险护栏</h3><p class="question">经济和公平有没有失控？</p>
+          <ul><li>投入产出比</li><li>奖励集中度</li><li>异常返还率</li></ul>
+        </article>
+      </div>
+      <div class="callout"><strong>不要只看玩法参与人数</strong>同步看街头总参与人数与原街头局数。新玩法高、原玩法等量下降，可能只是模式迁移。</div>
+    </section>
+
+    <section id="metrics" class="panel">
+      <h2 class="section-title">策略有效性：最需要单独证明</h2>
+      <p class="section-lead">重随率高不代表玩法有策略，可能只是随机不满意或奖励刺激。</p>
+      <div class="strategy-grid">
+        <article class="strategy"><span class="pill">选择质量</span><b>分档保留率</b><p>按球员、品级、阵容适配度观察玩家是否保留。</p></article>
+        <article class="strategy"><span class="pill">结果改善</span><b>重随后改善率</b><p>比较重随前后球员质量、适配度或预估胜率。</p></article>
+        <article class="strategy"><span class="pill">真实影响</span><b>决策有效性</b><p>控制初始球员、队友、对手等因素后，比较胜率差。</p></article>
+        <article class="strategy"><span class="pill">答案空间</span><b>选择集中度</b><p>若所有人只追同一批球员，策略可能退化为固定答案。</p></article>
+        <article class="strategy"><span class="pill">候选库博弈</span><b>2秒锁定利用率</b><p>观察取回、过期、公共抢选与争抢失败。</p></article>
+        <article class="strategy"><span class="pill">避免误判</span><b>无操作也可能正确</b><p>初始球员合适后直接确认，不应记为“未参与策略”。</p></article>
+      </div>
+
+      <h2 class="section-title">强制分群</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>分群维度</th><th>为什么必须拆</th><th>重点看什么</th></tr></thead>
+          <tbody>
+            <tr><td>轻度街头 / 核心街头</td><td>验证是否扩展受众</td><td>首次开局、复玩、街头总局数增量</td></tr>
+            <tr><td>新手人机 / 真人局</td><td>胜率与流失不可混看</td><td>完赛率、胜率、首次失败后的续玩</td></tr>
+            <tr><td>单排 / 2人 / 3人组队</td><td>匹配和胜率结构不同</td><td>匹配耗时、组队成功率、胜率差</td></tr>
+            <tr><td>不同球员池版本</td><td>配置变化直接影响策略</td><td>球员保留、重随、选择集中度</td></tr>
+            <tr><td>免费代币 / 合同费消耗</td><td>两类投入意愿不同</td><td>使用率、单局消耗、流失风险</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="events" class="panel">
+      <h2 class="section-title">最小埋点清单</h2>
+      <p class="section-lead">优先复用街头、匹配、结算已有事件，通过玩法参数区分；只新增街头经理独有决策事件。</p>
+      <div class="filter-row" aria-label="埋点筛选">
+        <button class="filter active" data-filter="all">全部</button>
+        <button class="filter" data-filter="reuse">复用</button>
+        <button class="filter" data-filter="new">新增</button>
+      </div>
+      <div class="table-wrap">
+        <table id="eventTable">
+          <thead><tr><th>阶段</th><th>事件</th><th>方式</th><th>关键参数</th></tr></thead>
+          <tbody>
+            <tr data-type="reuse"><td>触达</td><td>入口曝光 / 点击 / 介绍关闭</td><td><span class="pill">复用</span></td><td><code>source</code> <code>player_segment</code></td></tr>
+            <tr data-type="new"><td>资源</td><td>代币领取、质押确认 / 取消 / 失败</td><td><span class="pill">新增</span></td><td><code>token_source</code> <code>cost</code> <code>fail_reason</code></td></tr>
+            <tr data-type="new"><td>发牌</td><td>初始球员发放、球员信息查看</td><td><span class="pill">新增</span></td><td><code>player_card</code> <code>tier</code> <code>pool_version</code></td></tr>
+            <tr data-type="new"><td>决策</td><td>重随请求 / 结果、候选库置换、阵容确认</td><td><span class="pill">新增</span></td><td><code>reroll_count</code> <code>before_card</code> <code>after_card</code></td></tr>
+            <tr data-type="reuse"><td>匹配</td><td>开始、成功、超时、取消</td><td><span class="pill">复用</span></td><td><code>team_size</code> <code>bot_match</code> <code>duration</code></td></tr>
+            <tr data-type="reuse"><td>局内</td><td>比赛开始、中退、异常中断、比赛结束</td><td><span class="pill">复用</span></td><td><code>result</code> <code>exit_reason</code> <code>score_diff</code></td></tr>
+            <tr data-type="reuse"><td>结算</td><td>结算展示、奖励领取、再次参赛</td><td><span class="pill">复用</span></td><td><code>reward_base</code> <code>reward_bonus</code> <code>cap_hit</code></td></tr>
+            <tr data-type="reuse"><td>长线</td><td>排行榜查看 / 领奖、商店进入 / 兑换</td><td><span class="pill">复用</span></td><td><code>rank_range</code> <code>exchange_item</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <details>
+        <summary>公共参数：每个关键事件都应携带什么？</summary>
+        <div><code>mode</code>、单局标识、玩法版本、球员池配置版本、入口来源、组队人数、新手保护状态、人机/真人局、当前球员、消耗类型与数量、退出阶段、失败原因。</div>
+      </details>
+      <details>
+        <summary>当前待确认：胜负判断是否是独立操作？</summary>
+        <div>功能目标提到“胜负判断”，但现有流程没有明确的预测操作。如果最终存在独立预测，需要补充预测选择、命中率、信心档位，以及不同胜率区间的判断准确度。</div>
+      </details>
+    </section>
+
+    <section id="decision" class="panel">
+      <h2 class="section-title">看到什么数据，做什么判断</h2>
+      <p class="section-lead">先定位卡在哪一层，再决定改入口、改交互、改数值还是改玩法。</p>
+      <div class="decision-list">
+        <article class="decision"><div class="signal">入口点击低</div><div class="meaning">卖点、入口位置或触达对象不成立。</div><span class="result-tag tag-adjust">改触达</span></article>
+        <article class="decision"><div class="signal">点击高，质押低</div><div class="meaning">规则理解、投入风险或资源门槛有问题。</div><span class="result-tag tag-adjust">改门槛</span></article>
+        <article class="decision"><div class="signal">开局高，完赛低</div><div class="meaning">匹配等待、AI比赛观看价值或稳定性有问题。</div><span class="result-tag tag-adjust">改过程</span></article>
+        <article class="decision"><div class="signal">完赛高，复玩低</div><div class="meaning">赛前策略不足，或奖励只能支撑一次尝试。</div><span class="result-tag tag-adjust">改循环</span></article>
+        <article class="decision"><div class="signal">重随高，无胜率改善</div><div class="meaning">重随更像随机消耗，不构成有效决策。</div><span class="result-tag tag-stop">重做策略</span></article>
+        <article class="decision"><div class="signal">轻度玩家持续参与</div><div class="meaning">扩展受众目标得到支持，同时检查是否挤压原街头。</div><span class="result-tag tag-keep">保留验证</span></article>
+        <article class="decision"><div class="signal">参与高，经济失控</div><div class="meaning">玩法成立，但投入产出和奖励上限需要调整。</div><span class="result-tag tag-adjust">调经济</span></article>
+      </div>
+
+      <h2 class="section-title">上线结论写法</h2>
+      <div class="callout"><strong>推荐句式</strong>目标人群的有效参与与周期复玩出现改善，主要变化发生在【环节】；【策略指标】支持/不支持赛前决策有效；【护栏指标】未恶化/存在风险，因此建议【保留、调优或停止】。</div>
+      <p class="footnote">指标阈值暂不凭经验填写。应结合现有街头基线、奖励周期及灰度数据确定；上线前先与数据、策划确认“有效局、目标人群、周期、异常局”的统一口径。</p>
+    </section>
+  </main>
+
+  <button class="print-button" onclick="window.print()">打印 / 导出 PDF</button>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const panels = document.querySelectorAll('.panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(item => item.classList.remove('active'));
+        panels.forEach(panel => panel.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById(tab.dataset.panel).classList.add('active');
+        window.scrollTo({ top: document.querySelector('.tabs').offsetTop - 8, behavior: 'smooth' });
+      });
+    });
+
+    const filters = document.querySelectorAll('.filter');
+    filters.forEach(filter => {
+      filter.addEventListener('click', () => {
+        filters.forEach(item => item.classList.remove('active'));
+        filter.classList.add('active');
+        const type = filter.dataset.filter;
+        document.querySelectorAll('#eventTable tbody tr').forEach(row => {
+          row.style.display = type === 'all' || row.dataset.type === type ? '' : 'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>

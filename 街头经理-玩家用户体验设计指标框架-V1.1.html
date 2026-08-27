@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>街头经理｜玩家用户体验设计指标框架 V1.1</title>
+  <style>
+    :root {
+      --bg:#f4f6f9; --panel:#fff; --text:#172033; --muted:#697386; --line:#e2e6ed;
+      --blue:#2966d5; --blue-soft:#edf4ff; --teal:#087e6c; --teal-soft:#e9f7f3;
+      --amber:#9a5b00; --amber-soft:#fff4df; --red:#ae3b3b; --red-soft:#fff0f0;
+      --purple:#6d50b4; --purple-soft:#f1edff; --radius:16px;
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--text);font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;line-height:1.65}
+    button{font:inherit} a{color:var(--blue);text-decoration:none} a:hover{text-decoration:underline}
+    .page{max-width:1180px;margin:auto;padding:24px 24px 68px}
+    .hero{padding:32px;border:1px solid var(--line);border-radius:22px;background:var(--panel)}
+    .eyebrow{margin:0 0 8px;color:var(--blue);font-size:13px;font-weight:700;letter-spacing:.08em}
+    h1{margin:0;font-size:clamp(30px,5vw,50px);line-height:1.18;letter-spacing:-.03em}
+    .lead{max-width:850px;margin:14px 0 0;color:var(--muted);font-size:16px}
+    .source{margin:16px 0 0;color:var(--muted);font-size:12px}
+    .position{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:16px}
+    .main-point,.boundary{padding:23px;border-radius:var(--radius)}
+    .main-point{background:#162e58;color:white}.boundary{border:1px solid #ead3a5;background:var(--amber-soft)}
+    .small-label{margin:0;font-size:12px;font-weight:700;letter-spacing:.08em;opacity:.72}
+    .main-point h2,.boundary h2{margin:10px 0 6px;font-size:22px}.main-point p,.boundary p{margin:0}
+    .tabs{position:sticky;top:0;z-index:20;display:flex;gap:7px;margin:20px 0 16px;padding:8px;overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.95);backdrop-filter:blur(8px)}
+    .tab{flex:1;min-width:105px;padding:10px 12px;border:0;border-radius:10px;background:transparent;color:var(--muted);cursor:pointer}
+    .tab:hover{background:#f3f5f8;color:var(--text)}.tab.active{background:var(--blue);color:white;font-weight:700}
+    .panel{display:none}.panel.active{display:block;animation:show .18s ease-out}@keyframes show{from{opacity:.3;transform:translateY(4px)}to{opacity:1;transform:none}}
+    .section-title{margin:28px 0 7px;font-size:24px}.section-lead{margin:0 0 17px;color:var(--muted)}
+    .experience-promise{display:grid;grid-template-columns:repeat(4,1fr);gap:11px}
+    .promise{min-height:120px;padding:18px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}
+    .promise span{display:inline-grid;width:30px;height:30px;place-items:center;border-radius:9px;background:var(--blue-soft);color:var(--blue);font-size:12px;font-weight:700}
+    .promise h3{margin:11px 0 5px;font-size:16px}.promise p{margin:0;color:var(--muted);font-size:13px}
+    .core-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:15px}
+    .core{padding:20px;border-radius:15px;background:#162e58;color:white}.core:nth-child(2){background:#0b6759}.core:nth-child(3){background:#59408f}
+    .core small{opacity:.7}.core h3{margin:8px 0 4px;font-size:19px}.core p{margin:0;font-size:13px;opacity:.86}
+    .framework{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .dimension{padding:18px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+    .dimension .num{display:inline-flex;width:34px;height:34px;align-items:center;justify-content:center;border-radius:11px;background:var(--blue-soft);color:var(--blue);font-weight:800}
+    .dimension:nth-child(2) .num,.dimension:nth-child(5) .num{background:var(--teal-soft);color:var(--teal)}
+    .dimension:nth-child(3) .num{background:var(--purple-soft);color:var(--purple)}
+    .dimension:nth-child(4) .num,.dimension:nth-child(6) .num{background:var(--amber-soft);color:var(--amber)}
+    .dimension h3{margin:12px 0 4px;font-size:18px}.question{margin:0 0 12px;color:var(--muted);font-size:13px}
+    .metric-line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:13px}.metric-line b{font-weight:700}.metric-line span{color:var(--muted);text-align:right}
+    .legend{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.chip{padding:5px 9px;border-radius:999px;background:#edf0f4;color:var(--muted);font-size:12px}.chip.data{background:var(--blue-soft);color:var(--blue)}.chip.study{background:var(--teal-soft);color:var(--teal)}
+    .table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel)}
+    table{width:100%;min-width:900px;border-collapse:collapse}th,td{padding:13px 15px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top;font-size:13px}th{background:#f7f9fc;color:var(--muted)}tr:last-child td{border-bottom:0}
+    code{display:inline-block;margin:1px 2px;padding:2px 6px;border-radius:6px;background:#eff2f6;color:#344054;font-family:Consolas,monospace;font-size:12px}
+    .method-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.method{padding:20px;border:1px solid var(--line);border-radius:15px;background:var(--panel)}.method h3{margin:0 0 6px}.method p{margin:0;color:var(--muted);font-size:13px}.method ul{margin:12px 0 0;padding-left:18px;font-size:13px}.method li+li{margin-top:5px}
+    .callout{margin-top:14px;padding:15px 18px;border-left:4px solid var(--blue);border-radius:0 12px 12px 0;background:var(--blue-soft)}.callout strong{display:block;margin-bottom:4px}
+    .mistakes{display:grid;gap:9px}.mistake{display:grid;grid-template-columns:1fr 52px 1fr;align-items:center;gap:12px;padding:15px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}.wrong{color:var(--red)}.right{color:var(--teal)}.arrow{text-align:center;color:var(--muted);font-size:22px}
+    .decision-list{display:grid;gap:10px}.decision{display:grid;grid-template-columns:200px 1fr 115px;gap:14px;align-items:center;padding:15px 18px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}.decision b{font-size:14px}.decision p{margin:0;color:var(--muted);font-size:13px}.tag{justify-self:end;padding:5px 9px;border-radius:999px;font-size:12px;font-weight:700}.good{color:var(--teal);background:var(--teal-soft)}.warn{color:var(--amber);background:var(--amber-soft)}.bad{color:var(--red);background:var(--red-soft)}
+    details{margin-top:11px;border:1px solid var(--line);border-radius:13px;background:var(--panel)}summary{padding:14px 17px;cursor:pointer;font-weight:700}details>div{padding:0 17px 16px;color:var(--muted);font-size:13px}
+    .note{margin-top:22px;padding:14px 16px;border-radius:12px;background:#edf0f4;color:var(--muted);font-size:12px}.print{position:fixed;right:22px;bottom:22px;padding:11px 17px;border:0;border-radius:999px;background:#172033;color:white;cursor:pointer;box-shadow:0 8px 24px rgba(23,32,51,.18)}
+    @media(max-width:900px){.position,.framework,.method-grid{grid-template-columns:1fr}.experience-promise{grid-template-columns:repeat(2,1fr)}.core-metrics{grid-template-columns:1fr}.decision{grid-template-columns:1fr;gap:5px}.tag{justify-self:start}}
+    @media(max-width:560px){.page{padding:12px 12px 52px}.hero{padding:23px 19px}.experience-promise{grid-template-columns:1fr}.mistake{grid-template-columns:1fr}.arrow{text-align:left;transform:rotate(90deg);width:24px}.print{display:none}.tab{min-width:90px;padding:9px}}
+    @media print{body{background:#fff}.page{max-width:none;padding:0}.tabs,.print{display:none}.panel{display:block!important}.hero,.dimension,.method,.table-wrap,.decision,.promise{break-inside:avoid}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="hero">
+    <p class="eyebrow">ALLSTAR · 交互设计评估 V1.1</p>
+    <h1>街头经理<br>玩家用户体验设计指标框架</h1>
+    <p class="lead">站在交互设计师角度，不先问“玩法赚不赚钱”，先验证玩家能否发现、理解、决策、完成，并感到过程可控、结果可解释。</p>
+    <p class="source">设计依据：<a href="https://doc.weixin.qq.com/sheet/e3_AXsA8AYSAGsCNpx12xButTjqv1j2j?scode=AJEAIQdfAAo3ZADg5hAXsA8AYSAGs&tab=4m24r9" target="_blank" rel="noreferrer">《ALLSTAR-街头经理》</a></p>
+  </header>
+
+  <section class="position">
+    <article class="main-point">
+      <p class="small-label">体验评估目标</p>
+      <h2>设计意图是否被玩家正确接收</h2>
+      <p>行为数据回答“发生了什么”，体验研究回答“为什么发生”。两者共同验证交互方案。</p>
+    </article>
+    <article class="boundary">
+      <p class="small-label">职责边界</p>
+      <h2>参与率不是交互的单独成绩</h2>
+      <p>奖励、数值、入口曝光都会影响参与。交互指标应聚焦任务成功、理解、效率、控制感与错误恢复。</p>
+    </article>
+  </section>
+
+  <nav class="tabs" aria-label="文档导航">
+    <button class="tab active" data-panel="summary">一页框架</button>
+    <button class="tab" data-panel="dimensions">六维指标</button>
+    <button class="tab" data-panel="journey">旅程埋点</button>
+    <button class="tab" data-panel="research">验证方法</button>
+    <button class="tab" data-panel="judgement">结论判定</button>
+  </nav>
+
+  <section id="summary" class="panel active">
+    <h2 class="section-title">街头经理的体验承诺</h2>
+    <p class="section-lead">设计首先要兑现这四句话。</p>
+    <div class="experience-promise">
+      <article class="promise"><span>01</span><h3>不用实时操作</h3><p>操作压力下降，但玩家仍能参与关键选择。</p></article>
+      <article class="promise"><span>02</span><h3>赛前选择有依据</h3><p>球员、重随与候选库信息足够支持判断。</p></article>
+      <article class="promise"><span>03</span><h3>过程清晰可控</h3><p>玩家知道当前状态、代价、剩余机会与下一步。</p></article>
+      <article class="promise"><span>04</span><h3>结果可以解释</h3><p>玩家理解胜负、消耗、奖励与异常返还。</p></article>
+    </div>
+
+    <h2 class="section-title">三个核心体验指标</h2>
+    <div class="core-metrics">
+      <article class="core"><small>核心结果 01</small><h3>首次完整体验率</h3><p>首次进入玩法的玩家中，正常完成“进入—决策—比赛—结算”的比例。</p></article>
+      <article class="core"><small>核心结果 02</small><h3>关键任务成功率</h3><p>玩家能否独立完成质押、重随/置换、确认阵容和领取结算。</p></article>
+      <article class="core"><small>核心结果 03</small><h3>严重体验阻断率</h3><p>因理解错误、误操作、无反馈或无法恢复而退出流程的比例。</p></article>
+    </div>
+    <div class="callout"><strong>核心判断</strong>玩家完成了流程，不等于理解了玩法；玩家再次参赛，也不等于体验好，可能只是奖励驱动。</div>
+  </section>
+
+  <section id="dimensions" class="panel">
+    <h2 class="section-title">六维玩家体验指标</h2>
+    <p class="section-lead">每一维都包含可量化行为和需要研究验证的主观体验。</p>
+    <div class="legend"><span class="chip data">行为数据</span><span class="chip study">体验研究</span></div>
+    <div class="framework">
+      <article class="dimension"><span class="num">01</span><h3>可发现</h3><p class="question">玩家能找到入口并理解玩法价值吗？</p><div class="metric-line"><b>入口发现率</b><span>行为数据</span></div><div class="metric-line"><b>卖点识别率</b><span>体验研究</span></div><div class="metric-line"><b>介绍页跳失率</b><span>行为数据</span></div></article>
+      <article class="dimension"><span class="num">02</span><h3>可理解</h3><p class="question">玩家知道目标、规则和资源关系吗？</p><div class="metric-line"><b>规则理解正确率</b><span>体验研究</span></div><div class="metric-line"><b>反复查看说明率</b><span>行为数据</span></div><div class="metric-line"><b>质押取消率</b><span>行为数据</span></div></article>
+      <article class="dimension"><span class="num">03</span><h3>可决策</h3><p class="question">玩家能判断保留、重随还是置换吗？</p><div class="metric-line"><b>决策完成率</b><span>行为数据</span></div><div class="metric-line"><b>决策依据表达率</b><span>体验研究</span></div><div class="metric-line"><b>无效反复操作率</b><span>行为数据</span></div></article>
+      <article class="dimension"><span class="num">04</span><h3>可控制</h3><p class="question">玩家知道系统正在做什么，并能预测后果吗？</p><div class="metric-line"><b>状态反馈识别率</b><span>体验研究</span></div><div class="metric-line"><b>重复提交率</b><span>行为数据</span></div><div class="metric-line"><b>等待中退出率</b><span>行为数据</span></div></article>
+      <article class="dimension"><span class="num">05</span><h3>可完成</h3><p class="question">任务是否高效完成，出错后能否恢复？</p><div class="metric-line"><b>任务成功率</b><span>行为数据</span></div><div class="metric-line"><b>完成耗时 P50/P90</b><span>行为数据</span></div><div class="metric-line"><b>错误恢复率</b><span>行为数据</span></div></article>
+      <article class="dimension"><span class="num">06</span><h3>可解释</h3><p class="question">玩家能解释消耗、胜负与奖励吗？</p><div class="metric-line"><b>结算理解正确率</b><span>体验研究</span></div><div class="metric-line"><b>结算反复查看率</b><span>行为数据</span></div><div class="metric-line"><b>异常返还理解率</b><span>体验研究</span></div></article>
+    </div>
+  </section>
+
+  <section id="journey" class="panel">
+    <h2 class="section-title">玩家旅程与体验证据</h2>
+    <p class="section-lead">埋点不是记录所有点击，而是保留能解释体验问题的证据。</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>旅程阶段</th><th>体验问题</th><th>主要指标</th><th>关键事件 / 参数</th></tr></thead>
+        <tbody>
+          <tr><td>入口与介绍</td><td>找得到、看得懂为什么要玩</td><td>入口发现率、介绍退出率</td><td><code>entry_expose</code> <code>entry_click</code> <code>intro_exit_step</code></td></tr>
+          <tr><td>领取与质押</td><td>理解资源来源、投入与风险</td><td>质押成功率、取消率、失败恢复率</td><td><code>stake_confirm</code> <code>stake_cancel</code> <code>fail_reason</code></td></tr>
+          <tr><td>初始发牌</td><td>看懂球员价值和当前状态</td><td>信息查看率、首次决策耗时</td><td><code>card_dealt</code> <code>card_detail_open</code> <code>tier</code></td></tr>
+          <tr><td>重随与置换</td><td>理解代价、机会和变化结果</td><td>决策完成率、反复操作率、误操作率</td><td><code>reroll</code> <code>candidate_swap</code> <code>before_card</code> <code>after_card</code></td></tr>
+          <tr><td>匹配与局内</td><td>知道当前进度，等待可接受</td><td>等待退出率、重复取消率、异常恢复率</td><td><code>match_start</code> <code>match_cancel</code> <code>duration</code> <code>result</code></td></tr>
+          <tr><td>结算</td><td>理解胜负、消耗、奖励及上限</td><td>结算查看完成率、重复查看率</td><td><code>settlement_show</code> <code>reward_detail_open</code> <code>cap_hit</code></td></tr>
+          <tr><td>再次参赛</td><td>是否愿意主动进入下一轮</td><td>结算后主动再开率</td><td><code>play_again_click</code> <code>exit_after_settlement</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <details><summary>必须保留的分析参数</summary><div>玩法版本、球员池版本、首次/非首次体验、新手人机/真人局、单排/组队、当前阶段、操作前后对象、资源类型、失败原因、退出原因。没有这些参数，无法判断是交互问题还是配置差异。</div></details>
+  </section>
+
+  <section id="research" class="panel">
+    <h2 class="section-title">三种证据组合</h2>
+    <p class="section-lead">只靠线上埋点，无法证明玩家“看懂了”或“感到可控”。</p>
+    <div class="method-grid">
+      <article class="method"><h3>01 行为数据</h3><p>回答玩家在哪里停顿、回退、失败或退出。</p><ul><li>漏斗与路径</li><li>耗时 P50 / P90</li><li>错误与恢复</li><li>首次与熟练用户分群</li></ul></article>
+      <article class="method"><h3>02 可用性测试</h3><p>观察玩家能否独立完成任务并说出判断依据。</p><ul><li>不提示完成任务</li><li>记录卡点与误解</li><li>完成后复述规则</li><li>区分看不见与看不懂</li></ul></article>
+      <article class="method"><h3>03 赛后短问卷</h3><p>补充难以从点击行为推断的主观体验。</p><ul><li>规则是否清楚</li><li>选择是否有依据</li><li>过程是否可控</li><li>结果是否可解释</li></ul></article>
+    </div>
+    <h2 class="section-title">三个常见误判</h2>
+    <div class="mistakes">
+      <article class="mistake"><b class="wrong">重随率高 = 策略性强</b><span class="arrow">→</span><b class="right">结合决策依据与重随结果判断</b></article>
+      <article class="mistake"><b class="wrong">停留时间长 = 更沉浸</b><span class="arrow">→</span><b class="right">可能是看不懂、等待长或反馈弱</b></article>
+      <article class="mistake"><b class="wrong">再次参赛 = 体验满意</b><span class="arrow">→</span><b class="right">需排除奖励、任务与免费代币驱动</b></article>
+    </div>
+  </section>
+
+  <section id="judgement" class="panel">
+    <h2 class="section-title">从数据到交互结论</h2>
+    <p class="section-lead">同一项业务结果，可能对应完全不同的体验问题。</p>
+    <div class="decision-list">
+      <article class="decision"><b>完成率低 + 理解低</b><p>规则、信息结构或关键行动表达不清。</p><span class="tag bad">先改认知</span></article>
+      <article class="decision"><b>完成率低 + 理解高</b><p>玩家知道怎么做，但流程成本、等待或系统失败阻断了任务。</p><span class="tag warn">改效率/反馈</span></article>
+      <article class="decision"><b>完成率高 + 控制感低</b><p>流程看似顺畅，但玩家只是跟着系统走，赛前策略体验未成立。</p><span class="tag warn">强化决策</span></article>
+      <article class="decision"><b>复玩高 + 满意度低</b><p>可能由奖励或任务驱动，不能据此证明交互体验成功。</p><span class="tag warn">排除激励</span></article>
+      <article class="decision"><b>首次与熟练差距过大</b><p>学习成本偏高，需要优化首局引导、信息渐进与关键反馈。</p><span class="tag warn">优化首局</span></article>
+      <article class="decision"><b>成功、理解、控制均稳定</b><p>设计意图被正确接收，可继续观察长期使用与配置变化。</p><span class="tag good">体验成立</span></article>
+    </div>
+    <div class="callout"><strong>评审结论建议</strong>先写“哪一项体验承诺是否成立”，再写行为证据、研究证据、影响人群和下一步设计动作；不要只汇报点击率变化。</div>
+    <p class="note">指标阈值需通过当前街头模式基线、首轮可用性测试与灰度数据共同确定。首版不建议凭经验预设“合格数值”。</p>
+  </section>
+</main>
+<button class="print" onclick="window.print()">打印 / 导出 PDF</button>
+<script>
+  const tabs=document.querySelectorAll('.tab');
+  const panels=document.querySelectorAll('.panel');
+  tabs.forEach(tab=>tab.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('active'));
+    panels.forEach(x=>x.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById(tab.dataset.panel).classList.add('active');
+    window.scrollTo({top:document.querySelector('.tabs').offsetTop-8,behavior:'smooth'});
+  }));
+</script>
+</body>
+</html>
